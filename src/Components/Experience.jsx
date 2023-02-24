@@ -10,7 +10,7 @@ function ExperienceCard(props) {
         </div>
         <p className='m-4 text-xl font-bold'>{props.company}</p>
         <div>
-            <p>{props.skills}</p>
+            <p>{props.skills.join(' · ')}</p>
         </div>
     </div>
 }

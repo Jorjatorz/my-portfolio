@@ -5,7 +5,98 @@
             "company": "Apres",
             "place": "San Francisco, United States (Remote)",
             "date": "June 2022 - Present",
-            "skills": "Python · NumPy · Pandas · Scikit-Learn · PyTorch · Amazon Web Services (AWS) · PostgreSQL · Dagster"
+            "skills": [
+                "Python",
+                "NumPy",
+                "Pandas",
+                "Scikit-Learn",
+                "PyTorch",
+                "Amazon Web Services (AWS)",
+                "PostgreSQL",
+                "Dagster"
+            ]
+        },
+        {
+            "title": "Machine Learning Engineer",
+            "company": "Apres",
+            "place": "San Francisco, United States (Remote)",
+            "date": "January 2022 - June 2022",
+            "skills": [
+                "Python",
+                "NumPy",
+                "Pandas",
+                "Scikit-Learn",
+                "PyTorch",
+                "Amazon Web Services (AWS)",
+                "PostgreSQL",
+                "Dagster"
+            ]
+        },
+        {
+            "title": "AI Solutions Engineer",
+            "company": "Apres",
+            "place": "San Francisco, United States (Remote)",
+            "date": "February 2021 - January 2022",
+            "skills": [
+                "Python",
+                "NumPy",
+                "Pandas",
+                "Scikit-Learn",
+                "PyTorch",
+                "Amazon Web Services (AWS)",
+                "PostgreSQL",
+                "Dagster"
+            ]
+        },
+        {
+            "title": "Information Technology Business Consultant",
+            "company": "Deloitte",
+            "place": "Madrid, Spain",
+            "date": "September 2019 - February 2021",
+            "skills": [
+                "Excel",
+                "PowerPoint",
+                "Data Governance"
+            ]
+        },
+        {
+            "title": "Data Engineer",
+            "company": "EtsFactyory",
+            "place": "Madrid, Spain",
+            "date": "June 2018 - August 2018",
+            "skills": [
+                "Python",
+                "Pandas",
+                "Numpy",
+                "Flask",
+                "RabbitMQ",
+                "SQL Server",
+                ".NET",
+                "Jenkins"
+            ]
+        },
+        {
+            "title": "Software Engineer",
+            "company": "Dive.tech",
+            "place": "Madrid, Spain",
+            "date": "April 2017 - October 2017",
+            "skills": [
+                "C++",
+                "JAVA",
+                "Python",
+                "SQL",
+                "AWS",
+                "Docker",
+                "TensorFlow",
+                "Jenkins"
+            ]
+        },
+        {
+            "title": "Brand Representative",
+            "company": "Hollister Co.",
+            "place": "Madrid, Spain",
+            "date": "May 2016 - August 2016",
+            "skills": []
         }
     ]
 }
