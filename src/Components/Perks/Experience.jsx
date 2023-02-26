@@ -1,5 +1,5 @@
 import React from 'react';
-import experience_data from '../Data/experiences.json'
+import experience_data from '../../Data/experiences.json'
 
 function ExperienceCard(props) {
     return <div className='bg-slate-700 w-[30rem] rounded-lg p-4 flex flex-col justify-evenly'>

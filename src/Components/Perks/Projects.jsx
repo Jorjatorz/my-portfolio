@@ -1,5 +1,5 @@
 import React from 'react';
-import projects_data from '../Data/projects.json'
+import projects_data from '../../Data/projects.json'
 
 function ProjectsCard(props) {
     return <div className='bg-slate-700 w-[30rem] rounded-lg p-4'>
