@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import experience_data from '../Data/experience.json'
+import React from 'react';
+import experience_data from '../Data/experiences.json'
 
 function ExperienceCard(props) {
-    return <div className='bg-slate-700 w-[30rem] rounded-lg p-4'>
+    return <div className='bg-slate-700 w-[30rem] rounded-lg p-4 flex flex-col justify-evenly'>
         <h1 className='text-2xl font-bold'>{props.title}</h1>
-        <div className='flex justify-center gap-4'>
+        <div className='flex justify-evenly gap-4'>
             <p>{props.place}</p>
-            <p>{props.date}</p>
+            <p className='min-w-fit'>{props.date}</p>
         </div>
         <p className='m-4 text-xl font-bold'>{props.company}</p>
         <div>
@@ -17,7 +17,7 @@ function ExperienceCard(props) {
 
 function Experience() {
     return (
-        <div className='h-screen w-full mx-auto flex flex-row text-center justify-center'>
+        <div className='h-fit w-full mx-auto flex flex-row text-center justify-center'>
             <ul className='flex flex-col gap-4 mt-4'>
                 {experience_data.items.map((exp) =>
                     <li><ExperienceCard {...exp} /></li>)}

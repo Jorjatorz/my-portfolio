@@ -1,0 +1,31 @@
+{
+    "items": [
+        {
+            "title": "Can My Cloud Fetch It",
+            "link": "https://www.canmycloudfetchit.com/#/",
+            "description": "This page allows you to check if an API endpoint can be reached from different Cloud providers (AWS, GCP, Azure...). This is because some APIs block requests coming from these Cloud providers IP ranges, making it impossible for your project to work when hosted inside these.",
+            "technologies": [
+                "Flutter",
+                "Dart"
+            ]
+        },
+        {
+            "title": "TemporadaApp",
+            "link": "https://www.temporadapp.com/",
+            "description": "This Android & IOS app helps you know which of the fruits and vegetables you find in the supermarket or greengrocer are in season in each month. It also has a comparator of the nutritional value of fruits and vegetables. It is focused on the Spanish ecosystem.\n\nSeasonal fruits and vegetables are tastier and better for our health and pocket, in addition to favoring local commerce and the environment.",
+            "technologies": [
+                "Flutter",
+                "Dart"
+            ]
+        },
+        {
+            "title": "IG Tracker",
+            "link": "https://igtracker.app/",
+            "description": "Android app to analyze Instagram Profiles and Download Publications and Profile Photos without authentication. Built with Flutter & Dart. We were forced to \"cease and desist\" by Instagram even though it didn't infringe any of their terms.",
+            "technologies": [
+                "Flutter",
+                "Dart"
+            ]
+        }
+    ]
+}
