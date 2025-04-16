@@ -10,10 +10,126 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useRef, useState, useEffect } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
+// Define types for experience data
+type ExperienceRole = {
+  title: string;
+  period: string;
+  details: string[];
+};
+
+type ExperienceItem = {
+  company: string;
+  location: string;
+  period: string;
+  roles: ExperienceRole[];
+};
+
+type PreviousExperienceItem = {
+  company: string;
+  title: string;
+  location: string;
+  period: string;
+  details: string[];
+};
+
 function App() {
   const [activeSection, setActiveSection] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const totalSections = 6;
+  
+  // Experience section state
+  const [activeCapchaseRole, setActiveCapchaseRole] = useState(0);
+  const [activeApresRole, setActiveApresRole] = useState(0);
+  const [activePreviousRole, setActivePreviousRole] = useState(0);
+
+  // Experience data
+  const capchaseExperience: ExperienceItem = {
+    company: "Capchase",
+    location: "Madrid, Spain",
+    period: "March 2023 - Present",
+    roles: [
+      {
+        title: "Data Analytics Engineer",
+        period: "March 2023 - Present",
+        details: [
+          "Core Operational Model Enhancement: Designed, implemented, and refactored complex delinquency and financial models within DBT (BigQuery) and Looker, utilizing SQL and data modeling best practices.",
+          "Metrics Versioning: Successfully implemented metrics versioning, leading to a more robust tracking system and fewer issues raised by stakeholders.",
+          "Machine Learning Pipeline Standardization: Developed a standardized ML pipeline using Vertex AI and Dagster, substantially reducing deployment time and enhancing model consistency.",
+          "TAM Companies Enrichment Flow: Spearheaded an exploratory project to improve lead scoring by analyzing the viability of using GenAI, resulting in an 85% cost reduction.",
+          "Looker Financials to Netsuite Automation: Led a project to automate data transfer from Looker to Netsuite, significantly reducing manual work for the finance department.",
+          "Dynamic Eligibility for Pay Implementation: Enabled dynamic eligibility for Pay draws, automating a previously manual process, significantly reducing manual effort and potential errors."
+        ]
+      }
+    ]
+  };
+
+  const apresExperience: ExperienceItem = {
+    company: "Apres",
+    location: "San Francisco, California",
+    period: "February 2021 - March 2023",
+    roles: [
+      {
+        title: "Senior Machine Learning Engineer",
+        period: "June 2022 - March 2023",
+        details: [
+          "Designed and implemented a custom vehicle-driver assignments scheduler using Google OR-Tools, handling complex scenarios efficiently.",
+          "Improved Graph Neural Network (GNN) technology using PyTorch for better performance and embeddings visualization.",
+          "Scaled a custom online Feature Store and Python intelligence modules to handle millions of records through optimization."
+        ]
+      },
+      {
+        title: "Machine Learning Engineer",
+        period: "January 2022 - June 2022",
+        details: [
+          "Implemented the company's online intelligence module over gRPC for fast, on-demand computations.",
+          "Improved the custom online Feature Store scalability using PostgreSQL configuration and optimizations.",
+          "Conducted technical interviews, helping expand the engineering team."
+        ]
+      },
+      {
+        title: "AI Solutions Engineer",
+        period: "February 2021 - January 2022",
+        details: [
+          "Designed and implemented custom ML pipelines for various clients (fraud detection, demand forecasting, etc.).",
+          "Designed and built the company's online Feature Store from scratch using PostgreSQL and Python.",
+          "Designed and implemented the internal ML orchestration module using Dagster, Docker, and AWS."
+        ]
+      }
+    ]
+  };
+
+  const previousExperience: PreviousExperienceItem[] = [
+    {
+      company: "Deloitte",
+      title: "Information Technology Business Consultant",
+      location: "Madrid, Spain",
+      period: "September 2019 - February 2021",
+      details: [
+        "Led the finance department's data transformation (EMEA, AMER, APAC) for a global hotel group.",
+        "Conducted situation appraisals for international clients regarding Data Management and BI."
+      ]
+    },
+    {
+      company: "EtsFactory",
+      title: "Data Engineer",
+      location: "Madrid, Spain",
+      period: "June 2018 - August 2018",
+      details: [
+        "Designed and developed services/APIs for automating Solvency II file processing and analysis.",
+        "Developed microservices for retrieving and processing massive financial data."
+      ]
+    },
+    {
+      company: "Dive.tech",
+      title: "Software Engineer",
+      location: "Madrid, Spain",
+      period: "April 2017 - October 2017",
+      details: [
+        "Improved/maintained movie/series detection algorithms (C++/OpenCV).",
+        "Migrated services to AWS EC2 using Docker and Jenkins."
+      ]
+    }
+  ];
 
   const scrollToSection = (index: number) => {
     if (index >= 0 && index < totalSections) {
@@ -167,44 +283,49 @@ function App() {
         className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900 snap-start"
       >
         <div className="container px-4 py-16">
-          <Card className="max-w-4xl mx-auto">
-            <CardHeader>
-              <CardTitle className="text-3xl">Data Analytics Engineer @ Capchase</CardTitle>
-              <p className="text-xl text-muted-foreground">March 2023 - Present | Madrid, Spain</p>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-lg">
-                As a Data Analytics Engineer, I've led several high-impact data engineering and analytics initiatives, 
-                significantly improving operational efficiency, data quality, and model performance.
-              </p>
-              <ul className="list-disc pl-6 space-y-3 text-lg">
-                <li>
-                  <strong>Core Operational Model Enhancement:</strong> Designed, implemented, and refactored complex delinquency 
-                  and financial models within DBT (BigQuery) and Looker, utilizing SQL and data modeling best practices.
-                </li>
-                <li>
-                  <strong>Metrics Versioning:</strong> Successfully implemented metrics versioning, leading to a more robust 
-                  tracking system and fewer issues raised by stakeholders.
-                </li>
-                <li>
-                  <strong>Machine Learning Pipeline Standardization:</strong> Developed a standardized ML pipeline using Vertex AI 
-                  and Dagster, substantially reducing deployment time and enhancing model consistency.
-                </li>
-                <li>
-                  <strong>TAM Companies Enrichment Flow:</strong> Spearheaded an exploratory project to improve lead scoring by 
-                  analyzing the viability of using GenAI, resulting in an 85% cost reduction.
-                </li>
-                <li>
-                  <strong>Looker Financials to Netsuite Automation:</strong> Led a project to automate data transfer from Looker 
-                  to Netsuite, significantly reducing manual work for the finance department.
-                </li>
-                <li>
-                  <strong>Dynamic Eligibility for Pay Implementation:</strong> Enabled dynamic eligibility for Pay draws, 
-                  automating a previously manual process, significantly reducing manual effort and potential errors.
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
+          <div className="mb-8">
+            <h2 className="text-4xl font-bold">{capchaseExperience.company}</h2>
+            <div className="flex flex-col">
+              <p className="text-xl text-muted-foreground">{capchaseExperience.location}</p>
+              <p className="text-xl font-small">{capchaseExperience.period}</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Roles sidebar */}
+            <div className="space-y-4">
+              {capchaseExperience.roles.map((role, index) => (
+                <div 
+                  key={index} 
+                  onClick={() => setActiveCapchaseRole(index)}
+                  className={`p-4 border rounded-lg cursor-pointer transition-all ${
+                    activeCapchaseRole === index 
+                      ? "border-primary bg-primary/5" 
+                      : "hover:border-primary/50"
+                  }`}
+                >
+                  <h3 className="font-semibold text-xl">{role.title}</h3>
+                  <p className="text-muted-foreground">{role.period}</p>
+                </div>
+              ))}
+            </div>
+            
+            {/* Role details */}
+            <div className="md:col-span-2">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{capchaseExperience.roles[activeCapchaseRole].title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc pl-6 space-y-3 text-lg">
+                    {capchaseExperience.roles[activeCapchaseRole].details.map((detail, index) => (
+                      <li key={index}>{detail}</li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -214,126 +335,102 @@ function App() {
         className="min-h-screen flex items-center justify-center bg-slate-100 dark:bg-slate-800 snap-start"
       >
         <div className="container px-4 py-16">
-          <div className="max-w-4xl mx-auto space-y-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-3xl">Senior Machine Learning Engineer @ Apres</CardTitle>
-                <p className="text-xl text-muted-foreground">June 2022 - March 2023 | San Francisco, California</p>
-              </CardHeader>
-              <CardContent className="space-y-3 text-lg">
-                <ul className="list-disc pl-6 space-y-3">
-                  <li>
-                    Designed and implemented a custom vehicle-driver assignments scheduler using Google OR-Tools, handling complex scenarios efficiently.
-                  </li>
-                  <li>
-                    Improved Graph Neural Network (GNN) technology using PyTorch for better performance and embeddings visualization.
-                  </li>
-                  <li>
-                    Scaled a custom online Feature Store and Python intelligence modules to handle millions of records through optimization.
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-3xl">Machine Learning Engineer @ Apres</CardTitle>
-                <p className="text-xl text-muted-foreground">January 2022 - June 2022 | San Francisco, California</p>
-              </CardHeader>
-              <CardContent className="space-y-3 text-lg">
-                <ul className="list-disc pl-6 space-y-3">
-                  <li>
-                    Implemented the company's online intelligence module over gRPC for fast, on-demand computations.
-                  </li>
-                  <li>
-                    Improved the custom online Feature Store scalability using PostgreSQL configuration and optimizations.
-                  </li>
-                  <li>
-                    Conducted technical interviews, helping expand the engineering team.
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-3xl">AI Solutions Engineer @ Apres</CardTitle>
-                <p className="text-xl text-muted-foreground">February 2021 - January 2022 | San Francisco, California</p>
-              </CardHeader>
-              <CardContent className="space-y-3 text-lg">
-                <ul className="list-disc pl-6 space-y-3">
-                  <li>
-                    Designed and implemented custom ML pipelines for various clients (fraud detection, demand forecasting, etc.).
-                  </li>
-                  <li>
-                    Designed and built the company's online Feature Store from scratch using PostgreSQL and Python.
-                  </li>
-                  <li>
-                    Designed and implemented the internal ML orchestration module using Dagster, Docker, and AWS.
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
+          <div className="mb-8">
+            <h2 className="text-4xl font-bold">{apresExperience.company}</h2>
+            <div className="flex flex-col">
+              <p className="text-xl text-muted-foreground">{apresExperience.location}</p>
+              <p className="text-xl font-small">{apresExperience.period}</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Roles sidebar */}
+            <div className="space-y-4">
+              {apresExperience.roles.map((role, index) => (
+                <div 
+                  key={index} 
+                  onClick={() => setActiveApresRole(index)}
+                  className={`p-4 border rounded-lg cursor-pointer transition-all ${
+                    activeApresRole === index 
+                      ? "border-primary bg-primary/5" 
+                      : "hover:border-primary/50"
+                  }`}
+                >
+                  <h3 className="font-semibold text-xl">{role.title}</h3>
+                  <p className="text-muted-foreground">{role.period}</p>
+                </div>
+              ))}
+            </div>
+            
+            {/* Role details */}
+            <div className="md:col-span-2">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{apresExperience.roles[activeApresRole].title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc pl-6 space-y-3 text-lg">
+                    {apresExperience.roles[activeApresRole].details.map((detail, index) => (
+                      <li key={index}>{detail}</li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Section 5: Other Experience */}
+      {/* Section 5: Previous Experience */}
       <div 
         ref={(el) => { sectionRefs.current[4] = el; }}
         className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900 snap-start"
       >
         <div className="container px-4 py-16">
-          <div className="max-w-4xl mx-auto space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-3xl">Previous Experience</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-8">
-                <div className="space-y-3">
-                  <h3 className="text-2xl font-semibold">Information Technology Business Consultant @ Deloitte</h3>
-                  <p className="text-muted-foreground">September 2019 - February 2021 | Madrid, Spain</p>
-                  <ul className="list-disc pl-6 text-lg">
-                    <li>
-                      Led the finance department's data transformation (EMEA, AMER, APAC) for a global hotel group.
-                    </li>
-                    <li>
-                      Conducted situation appraisals for international clients regarding Data Management and BI.
-                    </li>
-                  </ul>
+          <div className="mb-8">
+            <h2 className="text-4xl font-bold">Previous Experience</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Previous roles sidebar */}
+            <div className="space-y-4">
+              {previousExperience.map((exp, index) => (
+                <div 
+                  key={index} 
+                  onClick={() => setActivePreviousRole(index)}
+                  className={`p-4 border rounded-lg cursor-pointer transition-all ${
+                    activePreviousRole === index 
+                      ? "border-primary bg-primary/5" 
+                      : "hover:border-primary/50"
+                  }`}
+                >
+                  <h3 className="font-semibold text-xl">{exp.company}</h3>
+                  <p className="font-medium">{exp.title}</p>
+                  <p className="text-muted-foreground">{exp.period}</p>
                 </div>
-
-                <Separator />
-
-                <div className="space-y-3">
-                  <h3 className="text-2xl font-semibold">Data Engineer @ EtsFactory</h3>
-                  <p className="text-muted-foreground">June 2018 - August 2018 | Madrid, Spain</p>
-                  <ul className="list-disc pl-6 text-lg">
-                    <li>
-                      Designed and developed services/APIs for automating Solvency II file processing and analysis.
-                    </li>
-                    <li>
-                      Developed microservices for retrieving and processing massive financial data.
-                    </li>
+              ))}
+            </div>
+            
+            {/* Role details */}
+            <div className="md:col-span-2">
+              <Card>
+                <CardHeader>
+                  <CardTitle>
+                    {previousExperience[activePreviousRole].company}: {previousExperience[activePreviousRole].title}
+                  </CardTitle>
+                  <p className="text-muted-foreground">
+                    {previousExperience[activePreviousRole].location} | {previousExperience[activePreviousRole].period}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc pl-6 space-y-3 text-lg">
+                    {previousExperience[activePreviousRole].details.map((detail, index) => (
+                      <li key={index}>{detail}</li>
+                    ))}
                   </ul>
-                </div>
-
-                <Separator />
-
-                <div className="space-y-3">
-                  <h3 className="text-2xl font-semibold">Software Engineer @ Dive.tech</h3>
-                  <p className="text-muted-foreground">April 2017 - October 2017 | Madrid, Spain</p>
-                  <ul className="list-disc pl-6 text-lg">
-                    <li>
-                      Improved/maintained movie/series detection algorithms (C++/OpenCV).
-                    </li>
-                    <li>
-                      Migrated services to AWS EC2 using Docker and Jenkins.
-                    </li>
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
