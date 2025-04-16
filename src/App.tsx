@@ -222,57 +222,77 @@ function App() {
         </div>
       </div>
 
-      {/* Section 2: Summary + Skills */}
+      {/* Section 2: About */}
       <div 
         ref={(el) => { sectionRefs.current[1] = el; }}
-        className="min-h-screen flex items-center justify-center bg-slate-100 dark:bg-slate-800 snap-start"
+        className="min-h-screen flex flex-col bg-slate-100 dark:bg-slate-800 snap-start"
       >
-        <div className="container px-4 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle className="text-3xl">Summary</CardTitle>
-              </CardHeader>
-              <CardContent className="prose dark:prose-invert">
-                <p className="text-lg">
-                  Software Engineer specializing in Machine Learning, Data Engineering, and Analytics with a strong consulting background. 
-                  Passionate about developing algorithms, optimizing code, designing software, and implementing AI models. 
-                </p>
-                <p className="text-lg">
-                  Currently focused on software development and data engineering, transitioning towards management and strategic roles. 
-                  Enjoys working on independent digital projects, primarily using Flutter, such as Temporadapp and Can My Cloud Fetch It?. 
-                  Aspires to found a scalable, value-providing company.
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle className="text-3xl">Top Skills</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  <Badge className="text-md p-1.5">Google Cloud</Badge>
-                  <Badge className="text-md p-1.5">Large Language Models (LLM)</Badge>
-                  <Badge className="text-md p-1.5">Data Build Tool (DBT)</Badge>
-                  <Badge className="text-md p-1.5">Machine Learning (ML)</Badge>
-                  <Badge className="text-md p-1.5">Data Engineering</Badge>
-                  <Badge className="text-md p-1.5">Analytics</Badge>
-                  <Badge className="text-md p-1.5">SQL</Badge>
-                  <Badge className="text-md p-1.5">Python</Badge>
-                  <Badge className="text-md p-1.5">Cloud-based Analytics</Badge>
-                  <Badge className="text-md p-1.5">ETL Processes</Badge>
-                  <Badge className="text-md p-1.5">BI Reporting Tools</Badge>
-                  <Badge className="text-md p-1.5">Vertex AI</Badge>
-                  <Badge className="text-md p-1.5">Dagster</Badge>
-                  <Badge className="text-md p-1.5">Looker</Badge>
-                  <Badge className="text-md p-1.5">BigQuery</Badge>
-                  <Badge className="text-md p-1.5">PostgreSQL</Badge>
-                  <Badge className="text-md p-1.5">Docker</Badge>
-                  <Badge className="text-md p-1.5">AWS</Badge>
+        {/* Section Header */}
+        <div className="container px-4 pt-16 pb-8">
+          <h2 className="text-4xl font-bold">About</h2>
+        </div>
+        
+        {/* Two-column layout */}
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-2">
+          {/* Summary - Left column with lighter background */}
+          <div className="bg-slate-50 dark:bg-slate-700 p-8 flex items-center">
+            <div className="prose dark:prose-invert max-w-xl">
+              <p className="text-xl">
+                Software Engineer specializing in Machine Learning, Data Engineering, and Analytics with a strong consulting background. 
+                Passionate about developing algorithms, optimizing code, designing software, and implementing AI models. 
+              </p>
+              <p className="text-xl">
+                Currently focused on software development and data engineering, transitioning towards management and strategic roles. 
+                Enjoys working on independent digital projects, primarily using Flutter, such as Temporadapp and Can My Cloud Fetch It?. 
+                Aspires to found a scalable, value-providing company.
+              </p>
+            </div>
+          </div>
+          
+          {/* Skills - Right column with original background */}
+          <div className="p-8 flex items-center">
+            <div className="w-full space-y-4">
+              {/* Compact skill cards with hover effect */}
+              <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-slate-900 shadow-sm transition-all hover:shadow-md">
+                <div className="p-4 cursor-pointer">
+                  <h3 className="text-2xl font-semibold text-blue-600 dark:text-blue-400">Data Analytics</h3>
+                  <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 mt-2">
+                    <p>Expert in transforming raw data into actionable insights using BigQuery, DBT, Looker, and other analytics tools.</p>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-500"></div>
+              </div>
+              
+              <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-slate-900 shadow-sm transition-all hover:shadow-md">
+                <div className="p-4 cursor-pointer">
+                  <h3 className="text-2xl font-semibold text-purple-600 dark:text-purple-400">ML & AI</h3>
+                  <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 mt-2">
+                    <p>Experienced in developing and optimizing machine learning models and leveraging AI technologies like LLMs and GenAI.</p>
+                  </div>
+                </div>
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-purple-500"></div>
+              </div>
+              
+              <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-slate-900 shadow-sm transition-all hover:shadow-md">
+                <div className="p-4 cursor-pointer">
+                  <h3 className="text-2xl font-semibold text-green-600 dark:text-green-400">Code Optimization</h3>
+                  <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 mt-2">
+                    <p>Skilled at identifying and resolving performance bottlenecks, refactoring code, and streamlining software architecture.</p>
+                  </div>
+                </div>
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-green-500"></div>
+              </div>
+              
+              <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-slate-900 shadow-sm transition-all hover:shadow-md">
+                <div className="p-4 cursor-pointer">
+                  <h3 className="text-2xl font-semibold text-amber-600 dark:text-amber-400">Project Management</h3>
+                  <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 mt-2">
+                    <p>Proven ability to lead cross-functional teams, manage complex projects, and deliver results aligned with business goals.</p>
+                  </div>
+                </div>
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-amber-500"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
