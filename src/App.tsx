@@ -435,7 +435,7 @@ function App() {
         </div>
       </div>
 
-      {/* Section 6: Education, Languages & Certifications */}
+      {/* Section 6: Education, Languages */}
       <div 
         ref={(el) => { sectionRefs.current[5] = el; }}
         className="min-h-screen flex items-center justify-center bg-slate-100 dark:bg-slate-800 snap-start"
@@ -449,19 +449,18 @@ function App() {
               <CardContent className="space-y-6 text-lg">
                 <div>
                   <h3 className="text-xl font-semibold">IÉSEG School of Management</h3>
-                  <p>Master of Science in Business Analysis & Consulting (2018-2020)</p>
+                  <p>Master of Science in Business Analysis & Consulting</p>
+                  <p className="text-muted-foreground">2018-2020</p>
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Universidad Politécnica de Madrid</h3>
-                  <p>Master's degree in Artificial Intelligence (2017-2018)</p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold">University of Hertfordshire</h3>
-                  <p>Bachelor's degree in Computer Science (2016-2017)</p>
+                  <p>Master's degree in Artificial Intelligence</p>
+                  <p className="text-muted-foreground">2017-2018</p>
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Universidad Complutense de Madrid</h3>
-                  <p>Bachelor's degree in Computer Science (2013-2017)</p>
+                  <p>Bachelor's degree in Computer Science</p>
+                  <p className="text-muted-foreground">2013-2017</p>
                 </div>
               </CardContent>
             </Card>
@@ -487,19 +486,6 @@ function App() {
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-3xl">Certifications & Awards</CardTitle>
-                </CardHeader>
-                <CardContent className="text-lg">
-                  <ul className="list-disc pl-6 space-y-2">
-                    <li>First Certificate in English (FCE)</li>
-                    <li>Sopra Steria Awards to the best Bachelor's Thesis</li>
-                    <li>ETS Challenge 2018 (First Position)</li>
-                    <li>Subjects finished with honors</li>
-                  </ul>
-                </CardContent>
-              </Card>
             </div>
           </div>
           
