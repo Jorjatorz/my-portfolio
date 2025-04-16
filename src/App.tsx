@@ -280,7 +280,7 @@ function App() {
                     <p>Skilled at identifying and resolving performance bottlenecks, refactoring code, and streamlining software architecture.</p>
                   </div>
                 </div>
-                <div className="absolute top-0 left-0 w-1.5 h-full bg-destructive"></div>
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
               </div>
               
               <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
