@@ -159,7 +159,7 @@ function App() {
   }, [totalSections]);
 
   return (
-    <div className="relative bg-[#0d0d0d] text-[#f2f2f2]">
+    <div className="relative bg-background text-foreground">
       {/* Navigation Controls */}
       <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-50 flex flex-col gap-2">
         {Array.from({ length: totalSections }).map((_, index) => (
@@ -167,7 +167,7 @@ function App() {
             key={index}
             onClick={() => scrollToSection(index)}
             className={`w-3 h-3 rounded-full ${
-              activeSection === index ? "bg-[#dca94b]" : "bg-[#2c2c2c]"
+              activeSection === index ? "bg-primary" : "bg-secondary"
             }`}
             aria-label={`Navigate to section ${index + 1}`}
           />
@@ -180,7 +180,7 @@ function App() {
         disabled={activeSection === 0}
         className={`fixed left-1/2 top-4 transform -translate-x-1/2 z-50 ${
           activeSection === 0 ? "opacity-0" : "opacity-70 hover:opacity-100"
-        } transition-opacity duration-300 text-[#dca94b]`}
+        } transition-opacity duration-300 text-primary`}
         aria-label="Previous section"
       >
         <ChevronUp size={32} />
@@ -191,7 +191,7 @@ function App() {
         disabled={activeSection === totalSections - 1}
         className={`fixed left-1/2 bottom-4 transform -translate-x-1/2 z-50 ${
           activeSection === totalSections - 1 ? "opacity-0" : "opacity-70 hover:opacity-100"
-        } transition-opacity duration-300 text-[#dca94b]`}
+        } transition-opacity duration-300 text-primary`}
         aria-label="Next section"
       >
         <ChevronDown size={32} />
@@ -200,22 +200,22 @@ function App() {
       {/* Section 1: Header */}
       <div 
         ref={(el) => { sectionRefs.current[0] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[#0d0d0d] snap-start"
+        className="min-h-screen flex items-center justify-center bg-background snap-start"
       >
         <div className="container px-4 py-16">
           <div className="flex flex-col md:flex-row gap-8 items-center">
-            <Avatar className="h-32 w-32 md:h-48 md:w-48 bg-[#1a1a1a] border-2 border-[#dca94b]">
-              <AvatarFallback className="text-3xl md:text-5xl bg-[#1a1a1a] text-[#dca94b]">
+            <Avatar className="h-32 w-32 md:h-48 md:w-48 bg-card border-2 border-primary">
+              <AvatarFallback className="text-3xl md:text-5xl bg-card text-primary">
                 JS
               </AvatarFallback>
             </Avatar>
             <div className="space-y-4 text-center md:text-left">
-              <h1 className="text-4xl md:text-6xl font-bold text-[#ffffff]">Jorge Sánchez Cremades</h1>
-              <h2 className="text-2xl md:text-3xl text-[#c88c2a]">Data Analytics Engineer</h2>
-              <h3 className="text-xl text-[#f2f2f2]">Madrid, Community of Madrid, Spain</h3>
+              <h1 className="text-4xl md:text-6xl font-bold text-foreground">Jorge Sánchez Cremades</h1>
+              <h2 className="text-2xl md:text-3xl text-accent">Data Analytics Engineer</h2>
+              <h3 className="text-xl text-foreground">Madrid, Community of Madrid, Spain</h3>
               <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                <Badge variant="outline" className="text-lg p-2 border-[#c88c2a] text-[#f2f2f2] hover:bg-[#1a1a1a]">LinkedIn Profile</Badge>
-                <Badge variant="outline" className="text-lg p-2 border-[#c88c2a] text-[#f2f2f2] hover:bg-[#1a1a1a]">GitHub Profile</Badge>
+                <Badge variant="outline" className="text-lg p-2 border-accent text-foreground hover:bg-card">LinkedIn Profile</Badge>
+                <Badge variant="outline" className="text-lg p-2 border-accent text-foreground hover:bg-card">GitHub Profile</Badge>
               </div>
             </div>
           </div>
@@ -225,18 +225,18 @@ function App() {
       {/* Section 2: About */}
       <div 
         ref={(el) => { sectionRefs.current[1] = el; }}
-        className="min-h-screen flex flex-col bg-[#1a1a1a] snap-start"
+        className="min-h-screen flex flex-col bg-card snap-start"
       >
         {/* Section Header */}
         <div className="container px-4 pt-16 pb-8">
-          <h2 className="text-4xl font-bold text-[#ffffff]">About</h2>
+          <h2 className="text-4xl font-bold text-foreground">About</h2>
         </div>
         
         {/* Two-column layout */}
         <div className="flex-1 grid grid-cols-1 md:grid-cols-2">
           {/* Summary - Left column with lighter background */}
-          <div className="bg-[#2c2c2c] p-8 flex items-center">
-            <div className="prose prose-invert max-w-xl text-[#f2f2f2]">
+          <div className="bg-secondary p-8 flex items-center">
+            <div className="prose prose-invert max-w-xl text-foreground">
               <p className="text-xl">
                 Software Engineer specializing in Machine Learning, Data Engineering, and Analytics with a strong consulting background. 
                 Passionate about developing algorithms, optimizing code, designing software, and implementing AI models. 
@@ -253,44 +253,44 @@ function App() {
           <div className="p-8 flex items-center">
             <div className="w-full space-y-4">
               {/* Compact skill cards with hover effect */}
-              <div className="group relative overflow-hidden rounded-lg border border-[#2c2c2c] bg-[#0d0d0d] shadow-sm transition-all hover:shadow-md">
+              <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
                 <div className="p-4 cursor-pointer">
-                  <h3 className="text-2xl font-semibold text-[#dca94b]">Data Analytics</h3>
+                  <h3 className="text-2xl font-semibold text-primary">Data Analytics</h3>
                   <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 mt-2">
                     <p>Expert in transforming raw data into actionable insights using BigQuery, DBT, Looker, and other analytics tools.</p>
                   </div>
                 </div>
-                <div className="absolute top-0 left-0 w-1.5 h-full bg-[#dca94b]"></div>
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-primary"></div>
               </div>
               
-              <div className="group relative overflow-hidden rounded-lg border border-[#2c2c2c] bg-[#0d0d0d] shadow-sm transition-all hover:shadow-md">
+              <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
                 <div className="p-4 cursor-pointer">
-                  <h3 className="text-2xl font-semibold text-[#dca94b]">ML & AI</h3>
+                  <h3 className="text-2xl font-semibold text-primary">ML & AI</h3>
                   <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 mt-2">
                     <p>Experienced in developing and optimizing machine learning models and leveraging AI technologies like LLMs and GenAI.</p>
                   </div>
                 </div>
-                <div className="absolute top-0 left-0 w-1.5 h-full bg-[#c88c2a]"></div>
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
               </div>
               
-              <div className="group relative overflow-hidden rounded-lg border border-[#2c2c2c] bg-[#0d0d0d] shadow-sm transition-all hover:shadow-md">
+              <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
                 <div className="p-4 cursor-pointer">
-                  <h3 className="text-2xl font-semibold text-[#dca94b]">Code Optimization</h3>
+                  <h3 className="text-2xl font-semibold text-primary">Code Optimization</h3>
                   <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 mt-2">
                     <p>Skilled at identifying and resolving performance bottlenecks, refactoring code, and streamlining software architecture.</p>
                   </div>
                 </div>
-                <div className="absolute top-0 left-0 w-1.5 h-full bg-[#a15c0e]"></div>
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-destructive"></div>
               </div>
               
-              <div className="group relative overflow-hidden rounded-lg border border-[#2c2c2c] bg-[#0d0d0d] shadow-sm transition-all hover:shadow-md">
+              <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
                 <div className="p-4 cursor-pointer">
-                  <h3 className="text-2xl font-semibold text-[#dca94b]">Project Management</h3>
+                  <h3 className="text-2xl font-semibold text-primary">Project Management</h3>
                   <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 mt-2">
                     <p>Proven ability to lead cross-functional teams, manage complex projects, and deliver results aligned with business goals.</p>
                   </div>
                 </div>
-                <div className="absolute top-0 left-0 w-1.5 h-full bg-[#c88c2a]"></div>
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
               </div>
             </div>
           </div>
@@ -300,14 +300,14 @@ function App() {
       {/* Section 3: Experience Capchase */}
       <div 
         ref={(el) => { sectionRefs.current[2] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[#0d0d0d] snap-start"
+        className="min-h-screen flex items-center justify-center bg-background snap-start"
       >
         <div className="container px-4 py-16">
           <div className="mb-8">
-            <h2 className="text-4xl font-bold text-[#ffffff]">{capchaseExperience.company}</h2>
+            <h2 className="text-4xl font-bold text-foreground">{capchaseExperience.company}</h2>
             <div className="flex flex-col">
-              <p className="text-xl text-[#c88c2a]">{capchaseExperience.location}</p>
-              <p className="text-xl font-small text-[#f2f2f2]">{capchaseExperience.period}</p>
+              <p className="text-xl text-accent">{capchaseExperience.location}</p>
+              <p className="text-xl font-small text-foreground">{capchaseExperience.period}</p>
             </div>
           </div>
           
@@ -320,21 +320,21 @@ function App() {
                   onClick={() => setActiveCapchaseRole(index)}
                   className={`p-4 border rounded-lg cursor-pointer transition-all ${
                     activeCapchaseRole === index 
-                      ? "border-[#dca94b] bg-[#1a1a1a]" 
-                      : "border-[#2c2c2c] hover:border-[#c88c2a]"
+                      ? "border-primary bg-card" 
+                      : "border-border hover:border-accent"
                   }`}
                 >
-                  <h3 className="font-semibold text-xl text-[#dca94b]">{role.title}</h3>
-                  <p className="text-[#f2f2f2]/70">{role.period}</p>
+                  <h3 className="font-semibold text-xl text-primary">{role.title}</h3>
+                  <p className="text-foreground/70">{role.period}</p>
                 </div>
               ))}
             </div>
             
             {/* Role details */}
             <div className="md:col-span-2">
-              <Card className="bg-[#1a1a1a] border-[#2c2c2c] text-[#f2f2f2]">
+              <Card className="bg-card border-border text-foreground">
                 <CardHeader>
-                  <CardTitle className="text-[#dca94b]">{capchaseExperience.roles[activeCapchaseRole].title}</CardTitle>
+                  <CardTitle className="text-primary">{capchaseExperience.roles[activeCapchaseRole].title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="list-disc pl-6 space-y-3 text-lg">
@@ -352,14 +352,14 @@ function App() {
       {/* Section 4: Experience Apres */}
       <div 
         ref={(el) => { sectionRefs.current[3] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[#1a1a1a] snap-start"
+        className="min-h-screen flex items-center justify-center bg-card snap-start"
       >
         <div className="container px-4 py-16">
           <div className="mb-8">
-            <h2 className="text-4xl font-bold text-[#ffffff]">{apresExperience.company}</h2>
+            <h2 className="text-4xl font-bold text-foreground">{apresExperience.company}</h2>
             <div className="flex flex-col">
-              <p className="text-xl text-[#c88c2a]">{apresExperience.location}</p>
-              <p className="text-xl font-small text-[#f2f2f2]">{apresExperience.period}</p>
+              <p className="text-xl text-accent">{apresExperience.location}</p>
+              <p className="text-xl font-small text-foreground">{apresExperience.period}</p>
             </div>
           </div>
           
@@ -372,21 +372,21 @@ function App() {
                   onClick={() => setActiveApresRole(index)}
                   className={`p-4 border rounded-lg cursor-pointer transition-all ${
                     activeApresRole === index 
-                      ? "border-[#dca94b] bg-[#0d0d0d]" 
-                      : "border-[#2c2c2c] hover:border-[#c88c2a]"
+                      ? "border-primary bg-background" 
+                      : "border-border hover:border-accent"
                   }`}
                 >
-                  <h3 className="font-semibold text-xl text-[#dca94b]">{role.title}</h3>
-                  <p className="text-[#f2f2f2]/70">{role.period}</p>
+                  <h3 className="font-semibold text-xl text-primary">{role.title}</h3>
+                  <p className="text-foreground/70">{role.period}</p>
                 </div>
               ))}
             </div>
             
             {/* Role details */}
             <div className="md:col-span-2">
-              <Card className="bg-[#0d0d0d] border-[#2c2c2c] text-[#f2f2f2]">
+              <Card className="bg-background border-border text-foreground">
                 <CardHeader>
-                  <CardTitle className="text-[#dca94b]">{apresExperience.roles[activeApresRole].title}</CardTitle>
+                  <CardTitle className="text-primary">{apresExperience.roles[activeApresRole].title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="list-disc pl-6 space-y-3 text-lg">
@@ -404,11 +404,11 @@ function App() {
       {/* Section 5: Previous Experience */}
       <div 
         ref={(el) => { sectionRefs.current[4] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[#0d0d0d] snap-start"
+        className="min-h-screen flex items-center justify-center bg-background snap-start"
       >
         <div className="container px-4 py-16">
           <div className="mb-8">
-            <h2 className="text-4xl font-bold text-[#ffffff]">Previous Experience</h2>
+            <h2 className="text-4xl font-bold text-foreground">Previous Experience</h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -420,25 +420,25 @@ function App() {
                   onClick={() => setActivePreviousRole(index)}
                   className={`p-4 border rounded-lg cursor-pointer transition-all ${
                     activePreviousRole === index 
-                      ? "border-[#dca94b] bg-[#1a1a1a]" 
-                      : "border-[#2c2c2c] hover:border-[#c88c2a]"
+                      ? "border-primary bg-card" 
+                      : "border-border hover:border-accent"
                   }`}
                 >
-                  <h3 className="font-semibold text-xl text-[#dca94b]">{exp.company}</h3>
-                  <p className="font-medium text-[#f2f2f2]">{exp.title}</p>
-                  <p className="text-[#f2f2f2]/70">{exp.period}</p>
+                  <h3 className="font-semibold text-xl text-primary">{exp.company}</h3>
+                  <p className="font-medium text-foreground">{exp.title}</p>
+                  <p className="text-foreground/70">{exp.period}</p>
                 </div>
               ))}
             </div>
             
             {/* Role details */}
             <div className="md:col-span-2">
-              <Card className="bg-[#1a1a1a] border-[#2c2c2c] text-[#f2f2f2]">
+              <Card className="bg-card border-border text-foreground">
                 <CardHeader>
-                  <CardTitle className="text-[#dca94b]">
+                  <CardTitle className="text-primary">
                     {previousExperience[activePreviousRole].company}: {previousExperience[activePreviousRole].title}
                   </CardTitle>
-                  <p className="text-[#c88c2a]">
+                  <p className="text-accent">
                     {previousExperience[activePreviousRole].location} | {previousExperience[activePreviousRole].period}
                   </p>
                 </CardHeader>
@@ -458,57 +458,57 @@ function App() {
       {/* Section 6: Education, Languages */}
       <div 
         ref={(el) => { sectionRefs.current[5] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[#1a1a1a] snap-start"
+        className="min-h-screen flex items-center justify-center bg-card snap-start"
       >
         <div className="container px-4 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <Card className="bg-[#0d0d0d] border-[#2c2c2c] text-[#f2f2f2]">
+            <Card className="bg-background border-border text-foreground">
               <CardHeader>
-                <CardTitle className="text-3xl text-[#dca94b]">Education</CardTitle>
+                <CardTitle className="text-3xl text-primary">Education</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6 text-lg">
                 <div>
-                  <h3 className="text-xl font-semibold text-[#ffffff]">IÉSEG School of Management</h3>
+                  <h3 className="text-xl font-semibold text-foreground">IÉSEG School of Management</h3>
                   <p>Master of Science in Business Analysis & Consulting</p>
-                  <p className="text-[#c88c2a]">2018-2020</p>
+                  <p className="text-accent">2018-2020</p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#ffffff]">Universidad Politécnica de Madrid</h3>
+                  <h3 className="text-xl font-semibold text-foreground">Universidad Politécnica de Madrid</h3>
                   <p>Master's degree in Artificial Intelligence</p>
-                  <p className="text-[#c88c2a]">2017-2018</p>
+                  <p className="text-accent">2017-2018</p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#ffffff]">Universidad Complutense de Madrid</h3>
+                  <h3 className="text-xl font-semibold text-foreground">Universidad Complutense de Madrid</h3>
                   <p>Bachelor's degree in Computer Science</p>
-                  <p className="text-[#c88c2a]">2013-2017</p>
+                  <p className="text-accent">2013-2017</p>
                 </div>
               </CardContent>
             </Card>
 
             <div className="space-y-8">
-              <Card className="bg-[#0d0d0d] border-[#2c2c2c] text-[#f2f2f2]">
+              <Card className="bg-background border-border text-foreground">
                 <CardHeader>
-                  <CardTitle className="text-3xl text-[#dca94b]">Languages</CardTitle>
+                  <CardTitle className="text-3xl text-primary">Languages</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4 text-lg">
                   <div className="flex justify-between">
                     <span>Spanish</span>
-                    <span className="text-[#c88c2a]">Native or Bilingual</span>
+                    <span className="text-accent">Native or Bilingual</span>
                   </div>
                   <div className="flex justify-between">
                     <span>English</span>
-                    <span className="text-[#c88c2a]">Full Professional</span>
+                    <span className="text-accent">Full Professional</span>
                   </div>
                   <div className="flex justify-between">
                     <span>French</span>
-                    <span className="text-[#c88c2a]">Limited Working</span>
+                    <span className="text-accent">Limited Working</span>
                   </div>
                 </CardContent>
               </Card>
             </div>
           </div>
           
-          <div className="text-center text-[#c88c2a] pt-16">
+          <div className="text-center text-accent pt-16">
             © 2025 Jorge Sánchez Cremades. All rights reserved.
           </div>
         </div>
