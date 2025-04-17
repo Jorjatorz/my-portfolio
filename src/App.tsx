@@ -239,7 +239,7 @@ function App() {
         {/* Two-column layout */}
         <div className="flex-1 grid grid-cols-1 md:grid-cols-2">
           {/* Summary - Left column with lighter background */}
-          <div className="bg-secondary p-8 flex items-center">
+          <div className=" p-8 flex items-center">
             <div className="prose prose-invert max-w-xl text-foreground">
               <p className="text-xl">
                 Software Engineer specializing in Machine Learning, Data Engineering, and Analytics with a strong consulting background.
