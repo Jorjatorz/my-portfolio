@@ -5,10 +5,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useRef, useState, useEffect } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
 
 // Define types for experience data
 type ExperienceRole = {
@@ -32,11 +30,28 @@ type PreviousExperienceItem = {
   details: string[];
 };
 
+// Define section data for navigation
+type Section = {
+  id: number;
+  name: string;
+};
+
 function App() {
   const [activeSection, setActiveSection] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const totalSections = 6;
-
+  
+  // Section data - easy to extend by adding more sections
+  const sections: Section[] = [
+    { id: 0, name: "Home" },
+    { id: 1, name: "About" },
+    { id: 2, name: "Impact - Capchase" },
+    { id: 3, name: "Impact - Apres" },
+    { id: 4, name: "Impact - Others" },
+    { id: 5, name: "Perks" }
+  ];
+  
+  const totalSections = sections.length;
+  
   // Experience section state
   const [activeCapchaseRole, setActiveCapchaseRole] = useState(0);
   const [activeApresRole, setActiveApresRole] = useState(0);
@@ -134,7 +149,6 @@ function App() {
   const scrollToSection = (index: number) => {
     if (index >= 0 && index < totalSections) {
       sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth' });
-      setActiveSection(index);
     }
   };
 
@@ -142,7 +156,7 @@ function App() {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
     const newActiveSection = Math.floor(scrollPosition / windowHeight);
-
+    
     if (newActiveSection !== activeSection && newActiveSection < totalSections) {
       setActiveSection(newActiveSection);
     }
@@ -160,39 +174,35 @@ function App() {
 
   return (
     <div className="relative bg-background text-foreground">
-      {/* Navigation Controls */}
-      <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-50 flex flex-col gap-2">
-        {Array.from({ length: totalSections }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => scrollToSection(index)}
-            className={`w-3 h-3 rounded-full ${activeSection === index ? "bg-primary" : "bg-secondary"
-              }`}
-            aria-label={`Navigate to section ${index + 1}`}
-          />
+      {/* Enhanced Navigation Controls */}
+      <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-50 flex flex-col gap-4">
+        {sections.map((section) => (
+          <div 
+            key={section.id} 
+            className="flex items-center justify-end h-8"
+            onClick={() => scrollToSection(section.id)}
+          >
+            {/* Section label */}
+            <div 
+              className={`px-3 py-1 rounded-md text-sm font-medium whitespace-nowrap ${
+                activeSection === section.id 
+                  ? "text-primary"
+                  : "opacity-0 group-hover:opacity-100 text-secondary"
+              } `}
+            >
+              {section.name}
+            </div>
+            
+            {/* Navigation dot - hidden when section is active */}
+            {activeSection !== section.id && (
+              <div
+                className="w-3 h-3 rounded-full bg-secondary ml-2 cursor-pointer hover:bg-primary transition-colors duration-200"
+                aria-label={`Navigate to ${section.name}`}
+              />
+            )}
+          </div>
         ))}
       </div>
-
-      {/* Navigation Arrows */}
-      <button
-        onClick={() => scrollToSection(activeSection - 1)}
-        disabled={activeSection === 0}
-        className={`fixed left-1/2 top-4 transform -translate-x-1/2 z-50 ${activeSection === 0 ? "opacity-0" : "opacity-70 hover:opacity-100"
-          } transition-opacity duration-300 text-primary`}
-        aria-label="Previous section"
-      >
-        <ChevronUp size={32} />
-      </button>
-
-      <button
-        onClick={() => scrollToSection(activeSection + 1)}
-        disabled={activeSection === totalSections - 1}
-        className={`fixed left-1/2 bottom-4 transform -translate-x-1/2 z-50 ${activeSection === totalSections - 1 ? "opacity-0" : "opacity-70 hover:opacity-100"
-          } transition-opacity duration-300 text-primary`}
-        aria-label="Next section"
-      >
-        <ChevronDown size={32} />
-      </button>
 
       {/* Section 1: Header */}
       <div
