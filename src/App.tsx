@@ -36,7 +36,7 @@ function App() {
   const [activeSection, setActiveSection] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const totalSections = 6;
-  
+
   // Experience section state
   const [activeCapchaseRole, setActiveCapchaseRole] = useState(0);
   const [activeApresRole, setActiveApresRole] = useState(0);
@@ -142,7 +142,7 @@ function App() {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
     const newActiveSection = Math.floor(scrollPosition / windowHeight);
-    
+
     if (newActiveSection !== activeSection && newActiveSection < totalSections) {
       setActiveSection(newActiveSection);
     }
@@ -166,9 +166,8 @@ function App() {
           <button
             key={index}
             onClick={() => scrollToSection(index)}
-            className={`w-3 h-3 rounded-full ${
-              activeSection === index ? "bg-primary" : "bg-secondary"
-            }`}
+            className={`w-3 h-3 rounded-full ${activeSection === index ? "bg-primary" : "bg-secondary"
+              }`}
             aria-label={`Navigate to section ${index + 1}`}
           />
         ))}
@@ -178,119 +177,116 @@ function App() {
       <button
         onClick={() => scrollToSection(activeSection - 1)}
         disabled={activeSection === 0}
-        className={`fixed left-1/2 top-4 transform -translate-x-1/2 z-50 ${
-          activeSection === 0 ? "opacity-0" : "opacity-70 hover:opacity-100"
-        } transition-opacity duration-300 text-primary`}
+        className={`fixed left-1/2 top-4 transform -translate-x-1/2 z-50 ${activeSection === 0 ? "opacity-0" : "opacity-70 hover:opacity-100"
+          } transition-opacity duration-300 text-primary`}
         aria-label="Previous section"
       >
         <ChevronUp size={32} />
       </button>
-      
+
       <button
         onClick={() => scrollToSection(activeSection + 1)}
         disabled={activeSection === totalSections - 1}
-        className={`fixed left-1/2 bottom-4 transform -translate-x-1/2 z-50 ${
-          activeSection === totalSections - 1 ? "opacity-0" : "opacity-70 hover:opacity-100"
-        } transition-opacity duration-300 text-primary`}
+        className={`fixed left-1/2 bottom-4 transform -translate-x-1/2 z-50 ${activeSection === totalSections - 1 ? "opacity-0" : "opacity-70 hover:opacity-100"
+          } transition-opacity duration-300 text-primary`}
         aria-label="Next section"
       >
         <ChevronDown size={32} />
       </button>
 
       {/* Section 1: Header */}
-      <div 
+      <div
         ref={(el) => { sectionRefs.current[0] = el; }}
         className="min-h-screen flex items-center justify-center bg-background snap-start"
       >
         <div className="container px-4 py-16">
           <div className="flex flex-col md:flex-row gap-8 items-center">
-            <Avatar className="h-32 w-32 md:h-48 md:w-48 bg-card border-2 border-primary">
-              <AvatarFallback className="text-3xl md:text-5xl bg-card text-primary">
-                JS
-              </AvatarFallback>
-            </Avatar>
             <div className="space-y-4 text-center md:text-left">
               <h1 className="text-4xl md:text-6xl font-bold text-foreground">Jorge Sánchez Cremades</h1>
               <h2 className="text-2xl md:text-3xl text-accent">Data Analytics Engineer</h2>
-              <h3 className="text-xl text-foreground">Madrid, Community of Madrid, Spain</h3>
               <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                 <Badge variant="outline" className="text-lg p-2 border-accent text-foreground hover:bg-card">LinkedIn Profile</Badge>
                 <Badge variant="outline" className="text-lg p-2 border-accent text-foreground hover:bg-card">GitHub Profile</Badge>
               </div>
             </div>
+            <Avatar className="h-32 w-32 md:h-48 md:w-48 bg-card border-2 border-primary">
+              <AvatarFallback className="text-3xl md:text-5xl bg-card text-primary">
+                JS
+              </AvatarFallback>
+            </Avatar>
           </div>
         </div>
       </div>
 
       {/* Section 2: About */}
-      <div 
+      <div
         ref={(el) => { sectionRefs.current[1] = el; }}
         className="min-h-screen flex flex-col bg-card snap-start"
       >
         {/* Section Header */}
-        <div className="container px-4 pt-16 pb-8">
-          <h2 className="text-4xl font-bold text-foreground">About</h2>
-        </div>
-        
+
+
         {/* Two-column layout */}
         <div className="flex-1 grid grid-cols-1 md:grid-cols-2">
           {/* Summary - Left column with lighter background */}
           <div className="bg-secondary p-8 flex items-center">
             <div className="prose prose-invert max-w-xl text-foreground">
               <p className="text-xl">
-                Software Engineer specializing in Machine Learning, Data Engineering, and Analytics with a strong consulting background. 
-                Passionate about developing algorithms, optimizing code, designing software, and implementing AI models. 
+                Software Engineer specializing in Machine Learning, Data Engineering, and Analytics with a strong consulting background.
+                Passionate about developing algorithms, optimizing code, designing software, and implementing AI models.
               </p>
+              <br />
               <p className="text-xl">
-                Currently focused on software development and data engineering, transitioning towards management and strategic roles. 
-                Enjoys working on independent digital projects, primarily using Flutter, such as Temporadapp and Can My Cloud Fetch It?. 
-                Aspires to found a scalable, value-providing company.
+                Currently focused on software development and data engineering, transitioning towards management and strategic roles.
               </p>
             </div>
           </div>
-          
+
           {/* Skills - Right column with original background */}
-          <div className="p-8 flex items-center">
-            <div className="w-full space-y-4">
-              {/* Compact skill cards with hover effect */}
-              <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
-                <div className="p-4 cursor-pointer">
-                  <h3 className="text-2xl font-semibold text-primary">Data Analytics</h3>
-                  <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 mt-2">
-                    <p>Expert in transforming raw data into actionable insights using BigQuery, DBT, Looker, and other analytics tools.</p>
+          <div className="flex items-center">
+            <div className="p-8 flex flex-col items-center">
+              <h2 className="text-3xl font-bold text-primary mb-6">Specialization</h2>
+              <div className="w-full space-y-4">
+                {/* Compact skill cards with hover effect */}
+                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
+                  <div className="p-4 cursor-pointer">
+                    <h3 className="text-2xl font-semibold text-primary">Data Analytics</h3>
+                    <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 mt-2">
+                      <p>Expert in transforming raw data into actionable insights using BigQuery, DBT, Looker, and other analytics tools.</p>
+                    </div>
                   </div>
+                  <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
                 </div>
-                <div className="absolute top-0 left-0 w-1.5 h-full bg-primary"></div>
-              </div>
-              
-              <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
-                <div className="p-4 cursor-pointer">
-                  <h3 className="text-2xl font-semibold text-primary">ML & AI</h3>
-                  <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 mt-2">
-                    <p>Experienced in developing and optimizing machine learning models and leveraging AI technologies like LLMs and GenAI.</p>
+
+                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
+                  <div className="p-4 cursor-pointer">
+                    <h3 className="text-2xl font-semibold text-primary">ML & AI</h3>
+                    <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 mt-2">
+                      <p>Experienced in developing and optimizing machine learning models and leveraging AI technologies like LLMs and GenAI.</p>
+                    </div>
                   </div>
+                  <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
                 </div>
-                <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
-              </div>
-              
-              <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
-                <div className="p-4 cursor-pointer">
-                  <h3 className="text-2xl font-semibold text-primary">Code Optimization</h3>
-                  <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 mt-2">
-                    <p>Skilled at identifying and resolving performance bottlenecks, refactoring code, and streamlining software architecture.</p>
+
+                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
+                  <div className="p-4 cursor-pointer">
+                    <h3 className="text-2xl font-semibold text-primary">Code Optimization</h3>
+                    <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 mt-2">
+                      <p>Skilled at identifying and resolving performance bottlenecks, refactoring code, and streamlining software architecture.</p>
+                    </div>
                   </div>
+                  <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
                 </div>
-                <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
-              </div>
-              
-              <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
-                <div className="p-4 cursor-pointer">
-                  <h3 className="text-2xl font-semibold text-primary">Project Management</h3>
-                  <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-300 mt-2">
-                    <p>Proven ability to lead cross-functional teams, manage complex projects, and deliver results aligned with business goals.</p>
+
+                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
+                  <div className="p-4 cursor-pointer">
+                    <h3 className="text-2xl font-semibold text-primary">Project Management</h3>
+                    <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 mt-2">
+                      <p>Proven ability to lead cross-functional teams, manage complex projects, and deliver results aligned with business goals.</p>
+                    </div>
                   </div>
+                  <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
                 </div>
-                <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
               </div>
             </div>
           </div>
@@ -298,7 +294,7 @@ function App() {
       </div>
 
       {/* Section 3: Experience Capchase */}
-      <div 
+      <div
         ref={(el) => { sectionRefs.current[2] = el; }}
         className="min-h-screen flex items-center justify-center bg-background snap-start"
       >
@@ -310,26 +306,25 @@ function App() {
               <p className="text-xl font-small text-foreground">{capchaseExperience.period}</p>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Roles sidebar */}
             <div className="space-y-4">
               {capchaseExperience.roles.map((role, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   onClick={() => setActiveCapchaseRole(index)}
-                  className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                    activeCapchaseRole === index 
-                      ? "border-primary bg-card" 
+                  className={`p-4 border rounded-lg cursor-pointer transition-all ${activeCapchaseRole === index
+                      ? "border-primary bg-card"
                       : "border-border hover:border-accent"
-                  }`}
+                    }`}
                 >
                   <h3 className="font-semibold text-xl text-primary">{role.title}</h3>
                   <p className="text-foreground/70">{role.period}</p>
                 </div>
               ))}
             </div>
-            
+
             {/* Role details */}
             <div className="md:col-span-2">
               <Card className="bg-card border-border text-foreground">
@@ -350,7 +345,7 @@ function App() {
       </div>
 
       {/* Section 4: Experience Apres */}
-      <div 
+      <div
         ref={(el) => { sectionRefs.current[3] = el; }}
         className="min-h-screen flex items-center justify-center bg-card snap-start"
       >
@@ -362,26 +357,25 @@ function App() {
               <p className="text-xl font-small text-foreground">{apresExperience.period}</p>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Roles sidebar */}
             <div className="space-y-4">
               {apresExperience.roles.map((role, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   onClick={() => setActiveApresRole(index)}
-                  className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                    activeApresRole === index 
-                      ? "border-primary bg-background" 
+                  className={`p-4 border rounded-lg cursor-pointer transition-all ${activeApresRole === index
+                      ? "border-primary bg-background"
                       : "border-border hover:border-accent"
-                  }`}
+                    }`}
                 >
                   <h3 className="font-semibold text-xl text-primary">{role.title}</h3>
                   <p className="text-foreground/70">{role.period}</p>
                 </div>
               ))}
             </div>
-            
+
             {/* Role details */}
             <div className="md:col-span-2">
               <Card className="bg-background border-border text-foreground">
@@ -402,7 +396,7 @@ function App() {
       </div>
 
       {/* Section 5: Previous Experience */}
-      <div 
+      <div
         ref={(el) => { sectionRefs.current[4] = el; }}
         className="min-h-screen flex items-center justify-center bg-background snap-start"
       >
@@ -410,19 +404,18 @@ function App() {
           <div className="mb-8">
             <h2 className="text-4xl font-bold text-foreground">Previous Experience</h2>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Previous roles sidebar */}
             <div className="space-y-4">
               {previousExperience.map((exp, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   onClick={() => setActivePreviousRole(index)}
-                  className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                    activePreviousRole === index 
-                      ? "border-primary bg-card" 
+                  className={`p-4 border rounded-lg cursor-pointer transition-all ${activePreviousRole === index
+                      ? "border-primary bg-card"
                       : "border-border hover:border-accent"
-                  }`}
+                    }`}
                 >
                   <h3 className="font-semibold text-xl text-primary">{exp.company}</h3>
                   <p className="font-medium text-foreground">{exp.title}</p>
@@ -430,7 +423,7 @@ function App() {
                 </div>
               ))}
             </div>
-            
+
             {/* Role details */}
             <div className="md:col-span-2">
               <Card className="bg-card border-border text-foreground">
@@ -456,7 +449,7 @@ function App() {
       </div>
 
       {/* Section 6: Education, Languages */}
-      <div 
+      <div
         ref={(el) => { sectionRefs.current[5] = el; }}
         className="min-h-screen flex items-center justify-center bg-card snap-start"
       >
@@ -507,7 +500,7 @@ function App() {
               </Card>
             </div>
           </div>
-          
+
           <div className="text-center text-accent pt-16">
             © 2025 Jorge Sánchez Cremades. All rights reserved.
           </div>
