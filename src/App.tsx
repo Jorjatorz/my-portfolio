@@ -207,7 +207,7 @@ function App() {
       {/* Section 1: Header */}
       <div
         ref={(el) => { sectionRefs.current[0] = el; }}
-        className="min-h-screen flex items-center justify-center bg-background snap-start"
+        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
       >
         <div className="container px-4 py-16">
           <div className="flex flex-col md:flex-row gap-8 items-center">
@@ -231,7 +231,7 @@ function App() {
       {/* Section 2: About */}
       <div
         ref={(el) => { sectionRefs.current[1] = el; }}
-        className="min-h-screen flex flex-col bg-card snap-start"
+        className="min-h-screen flex flex-col bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
       >
         {/* Section Header */}
 
@@ -306,7 +306,7 @@ function App() {
       {/* Section 3: Experience Capchase */}
       <div
         ref={(el) => { sectionRefs.current[2] = el; }}
-        className="min-h-screen flex items-center justify-center bg-background snap-start"
+        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
       >
         <div className="container px-4 py-16">
           <div className="mb-8">
@@ -357,7 +357,7 @@ function App() {
       {/* Section 4: Experience Apres */}
       <div
         ref={(el) => { sectionRefs.current[3] = el; }}
-        className="min-h-screen flex items-center justify-center bg-card snap-start"
+        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
       >
         <div className="container px-4 py-16">
           <div className="mb-8">
@@ -408,7 +408,7 @@ function App() {
       {/* Section 5: Previous Experience */}
       <div
         ref={(el) => { sectionRefs.current[4] = el; }}
-        className="min-h-screen flex items-center justify-center bg-background snap-start"
+        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
       >
         <div className="container px-4 py-16">
           <div className="mb-8">
@@ -461,7 +461,7 @@ function App() {
       {/* Section 6: Education, Languages */}
       <div
         ref={(el) => { sectionRefs.current[5] = el; }}
-        className="min-h-screen flex items-center justify-center bg-card snap-start"
+        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
       >
         <div className="container px-4 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
