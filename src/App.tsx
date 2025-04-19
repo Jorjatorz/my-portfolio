@@ -223,7 +223,7 @@ function App() {
           <div className="flex flex-col md:flex-row gap-8 items-center">
             <div className="space-y-4 text-center md:text-left">
               <h1 className="text-4xl md:text-6xl font-bold text-foreground">Jorge Sánchez Cremades</h1>
-              <h2 className="text-2xl md:text-3xl text-accent">Data Analytics Engineer</h2>
+              <h2 className="text-2xl md:text-3xl text-accent">Generalist Software Engineer</h2>
               <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                 <Badge variant="outline" className="text-lg p-2 border-accent text-foreground hover:bg-card">LinkedIn Profile</Badge>
                 <Badge variant="outline" className="text-lg p-2 border-accent text-foreground hover:bg-card">GitHub Profile</Badge>
