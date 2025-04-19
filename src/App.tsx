@@ -175,33 +175,43 @@ function App() {
   return (
     <div className="relative bg-background text-foreground">
       {/* Enhanced Navigation Controls */}
-      <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-50 flex flex-col gap-4">
-        {sections.map((section) => (
-          <div 
-            key={section.id} 
-            className="flex items-center justify-end h-8"
-            onClick={() => scrollToSection(section.id)}
-          >
-            {/* Section label */}
+      <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-50">
+        <div className="relative flex flex-col gap-4">
+          {/* Vertical line */}
+          <div
+            className="absolute w-[1px] bg-secondary/50 right-[6px] top-4 bottom-4"
+            aria-hidden="true"
+          />
+          
+          {sections.map((section) => (
             <div 
-              className={`px-3 py-1 rounded-md text-sm font-medium whitespace-nowrap ${
-                activeSection === section.id 
-                  ? "text-primary"
-                  : "opacity-0 group-hover:opacity-100 text-secondary"
-              } `}
+              key={section.id} 
+              className="group flex items-center justify-end h-8 cursor-pointer z-10"
+              onClick={() => scrollToSection(section.id)}
             >
-              {section.name}
-            </div>
-            
-            {/* Navigation dot - hidden when section is active */}
-            {activeSection !== section.id && (
+              {/* Section label - smooth transition */}
+              <div 
+                className={`px-3 py-1 rounded-md text-sm font-medium whitespace-nowrap transition-opacity duration-300 ease-in-out ${
+                  activeSection === section.id 
+                    ? "opacity-100 text-primary font-semibold"
+                    : "opacity-0 group-hover:opacity-100 group-hover:text-primary/50 text-secondary"
+                } `}
+              >
+                {section.name}
+              </div>
+              
+              {/* Navigation dot - always visible, styles change */}
               <div
-                className="w-3 h-3 rounded-full bg-secondary ml-2 cursor-pointer hover:bg-primary transition-colors duration-200"
+                className={`w-3 h-3 rounded-full ml-2 shrink-0 transition-all duration-300 ease-in-out ${
+                  activeSection === section.id
+                    ? 'bg-primary scale-125'
+                    : 'bg-secondary group-hover:bg-primary group-hover:scale-110'
+                }`}
                 aria-label={`Navigate to ${section.name}`}
               />
-            )}
-          </div>
-        ))}
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Section 1: Header */}
