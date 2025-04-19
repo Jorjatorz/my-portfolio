@@ -463,9 +463,9 @@ function App() {
         ref={(el) => { sectionRefs.current[5] = el; }}
         className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
       >
-        <div className="container px-4 py-16 autoShow">
+        <div className="container px-4 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <Card className="bg-background border-border text-foreground">
+            <Card className="bg-background border-border text-foreground autoShow">
               <CardHeader>
                 <CardTitle className="text-3xl text-primary">Education</CardTitle>
               </CardHeader>
@@ -488,7 +488,7 @@ function App() {
               </CardContent>
             </Card>
 
-            <div className="space-y-8">
+            <div className="space-y-8 autoShowFromRight">
               <Card className="bg-background border-border text-foreground">
                 <CardHeader>
                   <CardTitle className="text-3xl text-primary">Languages</CardTitle>
