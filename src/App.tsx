@@ -240,7 +240,7 @@ function App() {
         <div className="flex-1 grid grid-cols-1 md:grid-cols-2">
           {/* Summary - Left column with lighter background */}
           <div className=" p-8 flex items-center">
-            <div className="prose prose-invert max-w-xl text-foreground">
+            <div className="prose prose-invert max-w-xl text-foreground autoShow">
               <p className="text-xl">
                 Software Engineer specializing in Machine Learning, Data Engineering, and Analytics with a strong consulting background.
                 Passionate about developing algorithms, optimizing code, designing software, and implementing AI models.
@@ -255,10 +255,10 @@ function App() {
           {/* Skills - Right column with original background */}
           <div className="flex items-center">
             <div className="p-8 flex flex-col items-center">
-              <h2 className="text-3xl font-bold text-primary mb-6">Specialization</h2>
+              <h2 className="text-3xl font-bold text-primary mb-6 autoShowFromRight">Specialization</h2>
               <div className="w-full space-y-4">
                 {/* Compact skill cards with hover effect */}
-                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
+                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
                   <div className="p-4 cursor-pointer">
                     <h3 className="text-2xl font-semibold text-primary">Data Analytics</h3>
                     <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 mt-2">
@@ -268,7 +268,7 @@ function App() {
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
                 </div>
 
-                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
+                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
                   <div className="p-4 cursor-pointer">
                     <h3 className="text-2xl font-semibold text-primary">ML & AI</h3>
                     <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 mt-2">
@@ -278,7 +278,7 @@ function App() {
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
                 </div>
 
-                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
+                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
                   <div className="p-4 cursor-pointer">
                     <h3 className="text-2xl font-semibold text-primary">Code Optimization</h3>
                     <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 mt-2">
@@ -288,7 +288,7 @@ function App() {
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
                 </div>
 
-                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md">
+                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
                   <div className="p-4 cursor-pointer">
                     <h3 className="text-2xl font-semibold text-primary">Project Management</h3>
                     <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 mt-2">
@@ -319,7 +319,7 @@ function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Roles sidebar */}
-            <div className="space-y-4">
+            <div className="space-y-4 autoShow">
               {capchaseExperience.roles.map((role, index) => (
                 <div
                   key={index}
@@ -336,7 +336,7 @@ function App() {
             </div>
 
             {/* Role details */}
-            <div className="md:col-span-2">
+            <div className="md:col-span-2 autoShowFromRight">
               <Card className="bg-card border-border text-foreground">
                 <CardHeader>
                   <CardTitle className="text-primary">{capchaseExperience.roles[activeCapchaseRole].title}</CardTitle>
@@ -378,7 +378,7 @@ function App() {
                   className={`p-4 border rounded-lg cursor-pointer transition-all ${activeApresRole === index
                       ? "border-primary bg-background"
                       : "border-border hover:border-accent"
-                    }`}
+                    } autoShow`}
                 >
                   <h3 className="font-semibold text-xl text-primary">{role.title}</h3>
                   <p className="text-foreground/70">{role.period}</p>
@@ -387,7 +387,7 @@ function App() {
             </div>
 
             {/* Role details */}
-            <div className="md:col-span-2">
+            <div className="md:col-span-2 autoShowFromRight">
               <Card className="bg-background border-border text-foreground">
                 <CardHeader>
                   <CardTitle className="text-primary">{apresExperience.roles[activeApresRole].title}</CardTitle>
@@ -425,7 +425,7 @@ function App() {
                   className={`p-4 border rounded-lg cursor-pointer transition-all ${activePreviousRole === index
                       ? "border-primary bg-card"
                       : "border-border hover:border-accent"
-                    }`}
+                    } autoShow`}
                 >
                   <h3 className="font-semibold text-xl text-primary">{exp.company}</h3>
                   <p className="font-medium text-foreground">{exp.title}</p>
@@ -435,7 +435,7 @@ function App() {
             </div>
 
             {/* Role details */}
-            <div className="md:col-span-2">
+            <div className="md:col-span-2 autoShowFromRight">
               <Card className="bg-card border-border text-foreground">
                 <CardHeader>
                   <CardTitle className="text-primary">
@@ -463,7 +463,7 @@ function App() {
         ref={(el) => { sectionRefs.current[5] = el; }}
         className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
       >
-        <div className="container px-4 py-16">
+        <div className="container px-4 py-16 autoShow">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             <Card className="bg-background border-border text-foreground">
               <CardHeader>
