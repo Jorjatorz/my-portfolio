@@ -271,7 +271,7 @@ function App() {
                 <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
                   <div className="p-4 cursor-pointer">
                     <h3 className="text-2xl font-semibold text-primary">Data Analytics</h3>
-                    <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 mt-2">
+                    <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
                       <p>Expert in transforming raw data into actionable insights using BigQuery, DBT, Looker, and other analytics tools.</p>
                     </div>
                   </div>
@@ -281,7 +281,7 @@ function App() {
                 <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
                   <div className="p-4 cursor-pointer">
                     <h3 className="text-2xl font-semibold text-primary">ML & AI</h3>
-                    <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 mt-2">
+                    <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
                       <p>Experienced in developing and optimizing machine learning models and leveraging AI technologies like LLMs and GenAI.</p>
                     </div>
                   </div>
@@ -291,7 +291,7 @@ function App() {
                 <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
                   <div className="p-4 cursor-pointer">
                     <h3 className="text-2xl font-semibold text-primary">Code Optimization</h3>
-                    <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 mt-2">
+                    <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
                       <p>Skilled at identifying and resolving performance bottlenecks, refactoring code, and streamlining software architecture.</p>
                     </div>
                   </div>
@@ -301,7 +301,7 @@ function App() {
                 <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
                   <div className="p-4 cursor-pointer">
                     <h3 className="text-2xl font-semibold text-primary">Project Management</h3>
-                    <div className="h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-all duration-500 mt-2">
+                    <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
                       <p>Proven ability to lead cross-functional teams, manage complex projects, and deliver results aligned with business goals.</p>
                     </div>
                   </div>
