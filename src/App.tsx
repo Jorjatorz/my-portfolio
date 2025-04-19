@@ -179,7 +179,7 @@ function App() {
         <div className="relative flex flex-col gap-4">
           {/* Vertical line */}
           <div
-            className="absolute w-[1px] bg-secondary/50 right-[6px] top-4 bottom-4"
+            className="absolute w-[1px] bg-accent/40 right-[6px] top-4 bottom-4"
             aria-hidden="true"
           />
           
