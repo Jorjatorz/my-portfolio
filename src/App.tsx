@@ -39,6 +39,7 @@ type Section = {
 function App() {
   const [activeSection, setActiveSection] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null); // Ref for the canvas
   
   // Section data - easy to extend by adding more sections
   const sections: Section[] = [
@@ -172,8 +173,89 @@ function App() {
     sectionRefs.current = sectionRefs.current.slice(0, totalSections);
   }, [totalSections]);
 
+  // Canvas animation effect
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let particles: { x: number; y: number; vx: number; vy: number }[] = [];
+    const numParticles = 50;
+    const connectDistance = 100;
+    const particleSpeed = 0.5;
+    const lineColor = 'rgba(220, 179, 65, 0.5)';
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      particles = []; // Reinitialize particles on resize
+      for (let i = 0; i < numParticles; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * particleSpeed * 2,
+          vy: (Math.random() - 0.5) * particleSpeed * 2,
+        });
+      }
+    };
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((p) => {
+        // Update position
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Bounce off edges
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      });
+
+      // Draw connecting lines
+      ctx.strokeStyle = lineColor;
+      ctx.lineWidth = 5; // Make lines thicker
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < connectDistance) {
+            ctx.globalAlpha = 1 - distance / connectDistance; // Fade line with distance
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      ctx.globalAlpha = 1; // Reset alpha
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    resizeCanvas(); // Initial setup
+    animate();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Cleanup
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', resizeCanvas);
+    };
+  }, []); // Empty dependency array ensures this runs only once on mount
+
   return (
-    <div className="relative bg-background text-foreground">
+    <div className="relative text-foreground">
+      {/* Animated Background Canvas */}
+      <canvas 
+        ref={canvasRef} 
+        className="fixed top-0 left-0 w-full h-full -z-10"
+      />
+
       {/* Enhanced Navigation Controls */}
       <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-50">
         <div className="relative flex flex-col gap-4">
@@ -217,7 +299,7 @@ function App() {
       {/* Section 1: Header */}
       <div
         ref={(el) => { sectionRefs.current[0] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
+        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_rgba(21,18,30,0.8)_10%,_transparent_80%)] snap-start"
       >
         <div className="container px-4 py-16">
           <div className="flex flex-col md:flex-row gap-8 items-center">
@@ -241,7 +323,7 @@ function App() {
       {/* Section 2: About */}
       <div
         ref={(el) => { sectionRefs.current[1] = el; }}
-        className="min-h-screen flex flex-col bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
+        className="min-h-screen flex flex-col bg-[radial-gradient(ellipse_at_center,_rgba(21,18,30,0.8)_10%,_transparent_80%)] snap-start"
       >
         {/* Section Header */}
 
@@ -316,7 +398,7 @@ function App() {
       {/* Section 3: Experience Capchase */}
       <div
         ref={(el) => { sectionRefs.current[2] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
+        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_rgba(21,18,30,0.8)_10%,_transparent_80%)] snap-start"
       >
         <div className="container px-4 py-16">
           <div className="mb-8">
@@ -367,7 +449,7 @@ function App() {
       {/* Section 4: Experience Apres */}
       <div
         ref={(el) => { sectionRefs.current[3] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
+        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_rgba(21,18,30,0.8)_10%,_transparent_80%)] snap-start"
       >
         <div className="container px-4 py-16">
           <div className="mb-8">
@@ -418,7 +500,7 @@ function App() {
       {/* Section 5: Previous Experience */}
       <div
         ref={(el) => { sectionRefs.current[4] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
+        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_rgba(21,18,30,0.8)_10%,_transparent_80%)] snap-start"
       >
         <div className="container px-4 py-16">
           <div className="mb-8">
@@ -471,7 +553,7 @@ function App() {
       {/* Section 6: Education, Languages */}
       <div
         ref={(el) => { sectionRefs.current[5] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_#15121e,_var(--background))] backdrop-blur-sm snap-start"
+        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_rgba(21,18,30,0.8)_10%,_transparent_80%)] snap-start"
       >
         <div className="container px-4 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
