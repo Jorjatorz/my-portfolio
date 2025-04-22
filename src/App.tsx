@@ -257,6 +257,26 @@ function App() {
         className="fixed top-0 left-0 w-full h-full -z-10 blur-[3px]"
       />
 
+      {/* Fixed Profile Links */}
+      <div className="fixed top-4 right-4 z-50 flex gap-2">
+        <a 
+          href="https://www.linkedin.com/in/jorge-sanchez-cremades/" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className={cn(badgeVariants({ variant: "outline" }), "text-sm p-1.5 border-accent text-foreground hover:bg-card")}
+        >
+          LinkedIn
+        </a>
+        <a
+          href="https://github.com/Jorjatorz"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(badgeVariants({ variant: "outline" }), "text-sm p-1.5 border-accent text-foreground hover:bg-card")}
+        >
+          GitHub
+        </a>
+      </div>
+
       {/* Enhanced Navigation Controls */}
       <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-50">
         <div className="relative flex flex-col gap-4">
@@ -307,24 +327,6 @@ function App() {
             <div className="space-y-4 text-center md:text-left">
               <h1 className="text-4xl md:text-6xl font-bold text-foreground">Jorge Sánchez Cremades</h1>
               <h2 className="text-2xl md:text-3xl text-accent">Generalist Software Engineer</h2>
-              <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                <a 
-                  href="https://www.linkedin.com/in/jorge-sanchez-cremades/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className={cn(badgeVariants({ variant: "outline" }), "text-lg p-2 border-accent text-foreground hover:bg-card")}
-                >
-                  LinkedIn Profile
-                </a>
-                <a
-                  href="https://github.com/Jorjatorz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cn(badgeVariants({ variant: "outline" }), "text-lg p-2 border-accent text-foreground hover:bg-card")}
-                >
-                  GitHub Profile
-                </a>
-              </div>
             </div>
             <Avatar className="h-32 w-32 md:h-48 md:w-48 bg-card border-2 border-primary">
               <AvatarFallback className="text-3xl md:text-5xl bg-card text-primary">
