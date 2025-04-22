@@ -13,6 +13,7 @@ import { cn } from "./lib/utils";
 type ExperienceRole = {
   title: string;
   period: string;
+  introduction?: string;
   details: string[];
 };
 
@@ -41,7 +42,7 @@ function App() {
   const [activeSection, setActiveSection] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null); // Ref for the canvas
-  
+
   // Section data - easy to extend by adding more sections
   const sections: Section[] = [
     { id: 0, name: "Home" },
@@ -51,9 +52,9 @@ function App() {
     { id: 4, name: "Impact - Others" },
     { id: 5, name: "Perks" }
   ];
-  
+
   const totalSections = sections.length;
-  
+
   // Experience section state
   const [activeCapchaseRole, setActiveCapchaseRole] = useState(0);
   const [activeApresRole, setActiveApresRole] = useState(0);
@@ -66,15 +67,23 @@ function App() {
     period: "March 2023 - Present",
     roles: [
       {
-        title: "Data Analytics Engineer",
-        period: "March 2023 - Present",
+        title: "Generalist Software Engineer",
+        period: "August 2024 - Present",
+        introduction: "Transitioned from Data Analytics Engineer to Product engineering and Project Management, focusing on improving the company's internal tools and processes.",
         details: [
-          "Core Operational Model Enhancement: Designed, implemented, and refactored complex delinquency and financial models within DBT (BigQuery) and Looker, utilizing SQL and data modeling best practices.",
-          "Metrics Versioning: Successfully implemented metrics versioning, leading to a more robust tracking system and fewer issues raised by stakeholders.",
+          "TAM Enrichment Flow: Improve lead scoring by analyzing the viability of potential clients using GenAI, resulting in an 85% cost reduction from hundred thousands to less than hundred dollars.",
+          "Looker Financials to Netsuite Automation: Led a project to automate data transfer from Looker to Netsuite, significantly reducing manual work for the finance department and improving financial reconcilation.",
+          "Capital Markets automation: Automating critical manual processes, like Borrowing Base generation, significantly reducing manual effort and potential errors."
+        ]
+      },
+      {
+        title: "Data Analytics Engineer",
+        period: "March 2023 - Agust 2024",
+        introduction: "Led several high-impact data engineering and analytics initiatives, significantly improving operational efficiency, data quality, and models performance. Working with both technical and business stakeholders.",
+        details: [
+          "Core Operational Models Enhancement: Designed, implemented, and refactored complex delinquency and financial models within DBT (BigQuery) and Looker.",
+          "Business Metrics Versioning: Implemented metrics versioning for the core operational models, leading to a more robust BI system and fewer issues raised by stakeholders.",
           "Machine Learning Pipeline Standardization: Developed a standardized ML pipeline using Vertex AI and Dagster, substantially reducing deployment time and enhancing model consistency.",
-          "TAM Companies Enrichment Flow: Spearheaded an exploratory project to improve lead scoring by analyzing the viability of using GenAI, resulting in an 85% cost reduction.",
-          "Looker Financials to Netsuite Automation: Led a project to automate data transfer from Looker to Netsuite, significantly reducing manual work for the finance department.",
-          "Dynamic Eligibility for Pay Implementation: Enabled dynamic eligibility for Pay draws, automating a previously manual process, significantly reducing manual effort and potential errors."
         ]
       }
     ]
@@ -158,7 +167,7 @@ function App() {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
     const newActiveSection = Math.floor(scrollPosition / windowHeight);
-    
+
     if (newActiveSection !== activeSection && newActiveSection < totalSections) {
       setActiveSection(newActiveSection);
     }
@@ -252,17 +261,17 @@ function App() {
   return (
     <div className="relative text-foreground">
       {/* Animated Background Canvas */}
-      <canvas 
-        ref={canvasRef} 
+      <canvas
+        ref={canvasRef}
         className="fixed top-0 left-0 w-full h-full -z-10 blur-[3px]"
       />
 
       {/* Fixed Profile Links */}
       <div className="fixed top-4 right-4 z-50 flex gap-2">
-        <a 
-          href="https://www.linkedin.com/in/jorge-sanchez-cremades/" 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <a
+          href="https://www.linkedin.com/in/jorge-sanchez-cremades/"
+          target="_blank"
+          rel="noopener noreferrer"
           className={cn(badgeVariants({ variant: "outline" }), "text-sm p-1.5 border-accent text-foreground hover:bg-card")}
         >
           LinkedIn
@@ -285,31 +294,29 @@ function App() {
             className="absolute w-[1px] bg-accent/40 right-[6px] top-4 bottom-4"
             aria-hidden="true"
           />
-          
+
           {sections.map((section) => (
-            <div 
-              key={section.id} 
+            <div
+              key={section.id}
               className="group flex items-center justify-end h-8 cursor-pointer z-10"
               onClick={() => scrollToSection(section.id)}
             >
               {/* Section label - smooth transition */}
-              <div 
-                className={`px-3 py-1 rounded-md text-sm font-medium whitespace-nowrap transition-opacity duration-300 ease-in-out ${
-                  activeSection === section.id 
-                    ? "opacity-100 text-primary font-semibold"
-                    : "opacity-0 group-hover:opacity-100 group-hover:text-primary/50 text-secondary"
-                } `}
+              <div
+                className={`px-3 py-1 rounded-md text-sm font-medium whitespace-nowrap transition-opacity duration-300 ease-in-out ${activeSection === section.id
+                  ? "opacity-100 text-primary font-semibold"
+                  : "opacity-0 group-hover:opacity-100 group-hover:text-primary/50 text-secondary"
+                  } `}
               >
                 {section.name}
               </div>
-              
+
               {/* Navigation dot - always visible, styles change */}
               <div
-                className={`w-3 h-3 rounded-full ml-2 shrink-0 transition-all duration-300 ease-in-out ${
-                  activeSection === section.id
-                    ? 'bg-primary scale-125'
-                    : 'bg-secondary group-hover:bg-primary group-hover:scale-110'
-                }`}
+                className={`w-3 h-3 rounded-full ml-2 shrink-0 transition-all duration-300 ease-in-out ${activeSection === section.id
+                  ? 'bg-primary scale-125'
+                  : 'bg-secondary group-hover:bg-primary group-hover:scale-110'
+                  }`}
                 aria-label={`Navigate to ${section.name}`}
               />
             </div>
@@ -351,12 +358,12 @@ function App() {
           <div className=" p-8 flex items-center">
             <div className="prose prose-invert max-w-xl text-foreground autoShow">
               <p className="text-xl">
-                Software Engineer specializing in Machine Learning, Data Engineering, and Analytics with a strong consulting background.
+                Software Engineer specialized in Machine Learning, Data Engineering, and Analytics with a strong consulting background.
                 Passionate about developing algorithms, optimizing code, designing software, and implementing AI models.
               </p>
               <br />
               <p className="text-xl">
-                Currently focused on software development and data engineering, transitioning towards management and strategic roles.
+                Currently focused on Software Development and Data Engineering, transitioning towards Management and Strategic roles.
               </p>
             </div>
           </div>
@@ -371,7 +378,7 @@ function App() {
                   <div className="p-4 cursor-pointer">
                     <h3 className="text-2xl font-semibold text-primary">Data Analytics</h3>
                     <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
-                      <p>Expert in transforming raw data into actionable insights using BigQuery, DBT, Looker, and other analytics tools.</p>
+                      <p>Experienced in transforming raw data into actionable insights using <span className="text-primary">DBT, BigQuery, Looker</span>, and other analytics tools.</p>
                     </div>
                   </div>
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
@@ -381,7 +388,7 @@ function App() {
                   <div className="p-4 cursor-pointer">
                     <h3 className="text-2xl font-semibold text-primary">ML & AI</h3>
                     <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
-                      <p>Experienced in developing and optimizing machine learning models and leveraging AI technologies like LLMs and GenAI.</p>
+                      <p>Experienced in developing and optimizing <span className="text-primary">Machine Learning</span> models and leveraging <span className="text-primary">Generative AI</span> technologies.</p>
                     </div>
                   </div>
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
@@ -391,7 +398,7 @@ function App() {
                   <div className="p-4 cursor-pointer">
                     <h3 className="text-2xl font-semibold text-primary">Code Optimization</h3>
                     <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
-                      <p>Skilled at identifying and resolving performance bottlenecks, refactoring code, and streamlining software architecture.</p>
+                      <p>Skilled at identifying and resolving performance bottlenecks, refactoring code, and streamlining software architecture. Heavily reducing <span className="text-primary">Latency</span> and <span className="text-primary">Costs</span>.</p>
                     </div>
                   </div>
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
@@ -401,7 +408,7 @@ function App() {
                   <div className="p-4 cursor-pointer">
                     <h3 className="text-2xl font-semibold text-primary">Project Management</h3>
                     <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
-                      <p>Proven ability to lead cross-functional teams, manage complex projects, and deliver results aligned with business goals.</p>
+                      <p>Proven ability to <span className="text-primary">lead</span> cross-functional teams, <span className="text-primary">manage</span> complex projects, and deliver results aligned with business goals.</p>
                     </div>
                   </div>
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
@@ -434,8 +441,8 @@ function App() {
                   key={index}
                   onClick={() => setActiveCapchaseRole(index)}
                   className={`p-4 border rounded-lg cursor-pointer transition-all ${activeCapchaseRole === index
-                      ? "border-primary bg-card"
-                      : "border-border hover:border-accent"
+                    ? "border-primary bg-card"
+                    : "border-border hover:border-accent"
                     }`}
                 >
                   <h3 className="font-semibold text-xl text-primary">{role.title}</h3>
@@ -451,6 +458,9 @@ function App() {
                   <CardTitle className="text-primary">{capchaseExperience.roles[activeCapchaseRole].title}</CardTitle>
                 </CardHeader>
                 <CardContent>
+                  {capchaseExperience.roles[activeCapchaseRole].introduction && (
+                    <div className="text-foreground/70 mb-4">{capchaseExperience.roles[activeCapchaseRole].introduction}</div>
+                  )}
                   <ul className="list-disc pl-6 space-y-3 text-lg">
                     {capchaseExperience.roles[activeCapchaseRole].details.map((detail, index) => (
                       <li key={index}>{detail}</li>
@@ -485,8 +495,8 @@ function App() {
                   key={index}
                   onClick={() => setActiveApresRole(index)}
                   className={`p-4 border rounded-lg cursor-pointer transition-all ${activeApresRole === index
-                      ? "border-primary bg-background"
-                      : "border-border hover:border-accent"
+                    ? "border-primary bg-background"
+                    : "border-border hover:border-accent"
                     } autoShow`}
                 >
                   <h3 className="font-semibold text-xl text-primary">{role.title}</h3>
@@ -532,8 +542,8 @@ function App() {
                   key={index}
                   onClick={() => setActivePreviousRole(index)}
                   className={`p-4 border rounded-lg cursor-pointer transition-all ${activePreviousRole === index
-                      ? "border-primary bg-card"
-                      : "border-border hover:border-accent"
+                    ? "border-primary bg-card"
+                    : "border-border hover:border-accent"
                     } autoShow`}
                 >
                   <h3 className="font-semibold text-xl text-primary">{exp.company}</h3>
