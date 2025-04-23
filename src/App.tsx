@@ -58,10 +58,10 @@ function App() {
   const sections: Section[] = [
     { id: 0, name: "Home" },
     { id: 1, name: "About" },
-    { id: 2, name: "Impact - Capchase" },
-    { id: 3, name: "Impact - Apres" },
-    { id: 4, name: "Impact - Others" },
-    { id: 5, name: "Perks" }
+    { id: 2, name: "Experience - Capchase" },
+    { id: 3, name: "Experience - Apres" },
+    { id: 4, name: "Experience - Others" },
+    { id: 5, name: "Education & Languages" }
   ];
 
   const totalSections = sections.length;
@@ -439,7 +439,10 @@ function App() {
           <div className="flex flex-col md:flex-row gap-8 items-center">
             <div className="space-y-4 text-center md:text-left">
               <h1 className="text-4xl md:text-6xl font-bold text-foreground">Jorge Sánchez Cremades</h1>
-              <h2 className="text-2xl md:text-3xl text-accent">Generalist Software Engineer</h2>
+              <h2 className="text-2xl md:text-3xl text-accent">Freelance Software Engineer | Data & AI Solutions</h2>
+              <p className="text-lg md:text-xl text-foreground/80 mt-2">
+                Building efficient data pipelines, developing custom AI/ML solutions, and optimizing software to solve complex challenges and drive growth.
+              </p>
             </div>
             <Avatar className="h-32 w-32 md:h-48 md:w-48 bg-card border-2 border-primary">
               <AvatarFallback className="text-3xl md:text-5xl bg-card text-primary">
@@ -464,12 +467,8 @@ function App() {
           <div className=" p-8 flex items-center">
             <div className="prose prose-invert max-w-xl text-foreground autoShow">
               <p className="text-xl">
-                Software Engineer specialized in <span className="text-primary">Machine Learning, Data Engineering, and Analytics</span> with a strong consulting background.
-                Passionate about developing algorithms, optimizing code, designing software, and implementing AI models.
-              </p>
-              <br />
-              <p className="text-xl">
-                Currently focused on Software Development and Data Engineering, transitioning towards Management and Strategic roles.
+                Software Engineer specialized in <span className="text-primary">Machine Learning, Data Engineering, and Product</span> with a strong consulting background.
+                Passionate about developing algorithms, <span className="text-primary">optimizing</span> code, <span className="text-primary">designing</span> software, and <span className="text-primary">implementing</span> AI models.
               </p>
               <br />
               <p className="text-xl">
@@ -481,14 +480,14 @@ function App() {
           {/* Skills - Right column with original background */}
           <div className="flex items-center">
             <div className="p-8 flex flex-col items-center">
-              <h2 className="text-3xl font-bold text-primary mb-6 autoShowFromRight">Specialization</h2>
+              <h2 className="text-3xl font-bold text-primary mb-6 autoShowFromRight">Core Services</h2>
               <div className="w-full space-y-4">
                 {/* Compact skill cards with hover effect */}
                 <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
                   <div className="p-4 cursor-pointer">
-                    <h3 className="text-2xl font-semibold text-primary">Data Analytics</h3>
+                    <h3 className="text-2xl font-semibold text-primary">Data Engineering</h3>
                     <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
-                      <p>Experienced in transforming raw data into actionable insights using <span className="text-primary">DBT, BigQuery, Looker</span>, and other analytics tools.</p>
+                      Designing, building, and managing scalable data pipelines (DBT, BigQuery, Hightouch, ...) solutions.
                     </div>
                   </div>
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
@@ -498,7 +497,7 @@ function App() {
                   <div className="p-4 cursor-pointer">
                     <h3 className="text-2xl font-semibold text-primary">ML & AI</h3>
                     <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
-                      <p>Experienced in developing and optimizing <span className="text-primary">Machine Learning</span> models and leveraging <span className="text-primary">Generative AI</span> technologies.</p>
+                      Implementing custom Machine Learning models, leveraging GenAI, and deploying solutions (e.g. Vertex AI, Docker, Dagster, ...).
                     </div>
                   </div>
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
@@ -506,9 +505,9 @@ function App() {
 
                 <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
                   <div className="p-4 cursor-pointer">
-                    <h3 className="text-2xl font-semibold text-primary">Code Optimization</h3>
+                    <h3 className="text-2xl font-semibold text-primary">Software & System Optimization</h3>
                     <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
-                      <p>Skilled at identifying and resolving performance bottlenecks, refactoring code, and streamlining software architecture. Heavily reducing <span className="text-primary">Latency</span> and <span className="text-primary">Costs</span>.</p>
+                      Improving application performance, reducing latency, optimizing database queries, and cutting infrastructure costs.
                     </div>
                   </div>
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
@@ -516,9 +515,9 @@ function App() {
 
                 <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
                   <div className="p-4 cursor-pointer">
-                    <h3 className="text-2xl font-semibold text-primary">Project Management</h3>
+                    <h3 className="text-2xl font-semibold text-primary">Project Management & Technical Consulting</h3>
                     <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
-                      <p>Proven ability to <span className="text-primary">lead</span> cross-functional teams, <span className="text-primary">manage</span> complex projects, and deliver results aligned with business goals.</p>
+                      Providing expert guidance on architecture, technology choices, and project strategy.
                     </div>
                   </div>
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
@@ -655,7 +654,7 @@ function App() {
       >
         <div className="container px-4 py-16">
           <div className="mb-8">
-            <h2 className="text-4xl font-bold text-foreground">Previous Experience</h2>
+            <h2 className="text-4xl font-bold text-foreground">Others</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
