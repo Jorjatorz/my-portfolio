@@ -7,6 +7,7 @@ import {
 import { badgeVariants } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useRef, useState, useEffect } from "react";
+import Typewriter from 'typewriter-effect';
 import { cn } from "./lib/utils";
 
 // Define types for experience data
@@ -441,7 +442,24 @@ function App() {
               <h1 className="text-4xl md:text-6xl font-bold text-foreground">Jorge Sánchez Cremades</h1>
               <h2 className="text-2xl md:text-3xl text-accent">Freelance Software Engineer | Data & AI Solutions</h2>
               <p className="text-lg md:text-xl text-foreground/80 mt-2">
-                Building efficient data pipelines, developing custom AI/ML solutions, and optimizing software to solve complex challenges and drive growth.
+                <span className="inline-block min-h-[1.5em] align-top text-violet-700"> {/* Adjust min-h for layout stability */}
+                  <Typewriter
+                    options={{
+                      strings: [
+                        "Building efficient data pipelines",
+                        "Developing custom AI/ML solutions",
+                        "Optimizing software",
+                      ],
+                      autoStart: true,
+                      loop: true,
+                      delay: 50, // Typing speed
+                      deleteSpeed: 25, // Deleting speed
+                      wrapperClassName: "inline-block", // Keep it inline
+                      cursor: "_",
+                    }}
+                  />
+                </span>
+                to solve complex challenges and drive growth.
               </p>
             </div>
             <Avatar className="h-32 w-32 md:h-48 md:w-48 bg-card border-2 border-primary">
