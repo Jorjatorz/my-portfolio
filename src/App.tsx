@@ -358,12 +358,16 @@ function App() {
           <div className=" p-8 flex items-center">
             <div className="prose prose-invert max-w-xl text-foreground autoShow">
               <p className="text-xl">
-                Software Engineer specialized in Machine Learning, Data Engineering, and Analytics with a strong consulting background.
+                Software Engineer specialized in <span className="text-primary">Machine Learning, Data Engineering, and Analytics</span> with a strong consulting background.
                 Passionate about developing algorithms, optimizing code, designing software, and implementing AI models.
               </p>
               <br />
               <p className="text-xl">
                 Currently focused on Software Development and Data Engineering, transitioning towards Management and Strategic roles.
+              </p>
+              <br />
+              <p className="text-xl">
+                From time to time I develop Personal Projects.
               </p>
             </div>
           </div>
