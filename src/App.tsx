@@ -10,11 +10,16 @@ import { useRef, useState, useEffect } from "react";
 import { cn } from "./lib/utils";
 
 // Define types for experience data
+type ExperienceDetail = {
+  task: string;
+  description: string;
+};
+
 type ExperienceRole = {
   title: string;
   period: string;
   introduction?: string;
-  details: string[];
+  details: ExperienceDetail[];
 };
 
 type ExperienceItem = {
@@ -22,6 +27,7 @@ type ExperienceItem = {
   location: string;
   period: string;
   roles: ExperienceRole[];
+  details: ExperienceDetail[];
 };
 
 type PreviousExperienceItem = {
@@ -29,7 +35,7 @@ type PreviousExperienceItem = {
   title: string;
   location: string;
   period: string;
-  details: string[];
+  details: ExperienceDetail[];
 };
 
 // Define section data for navigation
@@ -71,9 +77,9 @@ function App() {
         period: "August 2024 - Present",
         introduction: "Transitioned from Data Analytics Engineer to Product engineering and Project Management, focusing on improving the company's internal tools and processes.",
         details: [
-          "TAM Enrichment Flow: Improve lead scoring by analyzing the viability of potential clients using GenAI, resulting in an 85% cost reduction from hundred thousands to less than hundred dollars.",
-          "Looker Financials to Netsuite Automation: Led a project to automate data transfer from Looker to Netsuite, significantly reducing manual work for the finance department and improving financial reconcilation.",
-          "Capital Markets automation: Automating critical manual processes, like Borrowing Base generation, significantly reducing manual effort and potential errors."
+          { task: "TAM Enrichment Flow", description: "Improve lead scoring by analyzing the viability of potential clients using GenAI, resulting in an 85% cost reduction from hundred thousands to less than hundred dollars." },
+          { task: "Looker Financials to Netsuite Automation", description: "Led a project to automate data transfer from Looker to Netsuite, significantly reducing manual work for the finance department and improving financial reconcilation." },
+          { task: "Capital Markets Automation", description: "Automating critical manual processes, like Borrowing Base generation, significantly reducing manual effort and potential errors." }
         ]
       },
       {
@@ -81,12 +87,13 @@ function App() {
         period: "March 2023 - Agust 2024",
         introduction: "Led several high-impact data engineering and analytics initiatives, significantly improving operational efficiency, data quality, and models performance. Working with both technical and business stakeholders.",
         details: [
-          "Core Operational Models Enhancement: Designed, implemented, and refactored complex delinquency and financial models within DBT (BigQuery) and Looker.",
-          "Business Metrics Versioning: Implemented metrics versioning for the core operational models, leading to a more robust BI system and fewer issues raised by stakeholders.",
-          "Machine Learning Pipeline Standardization: Developed a standardized ML pipeline using Vertex AI and Dagster, substantially reducing deployment time and enhancing model consistency.",
+          { task: "Core Operational Models Enhancement", description: "Designed, implemented, and refactored complex delinquency and financial models within DBT (BigQuery) and Looker." },
+          { task: "Business Metrics Versioning", description: "Implemented metrics versioning for the core operational models, leading to a more robust BI system and fewer issues raised by stakeholders." },
+          { task: "Machine Learning Pipeline Standardization", description: "Developed a standardized ML pipeline using Vertex AI and Dagster, substantially reducing deployment time and enhancing model consistency." },
         ]
       }
-    ]
+    ],
+    details: []
   };
 
   const apresExperience: ExperienceItem = {
@@ -98,30 +105,31 @@ function App() {
         title: "Senior Machine Learning Engineer",
         period: "June 2022 - March 2023",
         details: [
-          "Designed and implemented a custom vehicle-driver assignments scheduler using Google OR-Tools, handling complex scenarios efficiently.",
-          "Improved Graph Neural Network (GNN) technology using PyTorch for better performance and embeddings visualization.",
-          "Scaled a custom online Feature Store and Python intelligence modules to handle millions of records through optimization."
+          { task: "Vehicle-Driver Assignments Scheduler", description: "Designed and implemented a custom vehicle-driver assignments scheduler using Google OR-Tools, handling complex scenarios efficiently." },
+          { task: "Graph Neural Network (GNN) Improvement", description: "Improved Graph Neural Network (GNN) technology using PyTorch for better performance and embeddings visualization." },
+          { task: "Feature Store Scaling", description: "Scaled a custom online Feature Store and Python intelligence modules to handle millions of records through optimization." }
         ]
       },
       {
         title: "Machine Learning Engineer",
         period: "January 2022 - June 2022",
         details: [
-          "Implemented the company's online intelligence module over gRPC for fast, on-demand computations.",
-          "Improved the custom online Feature Store scalability using PostgreSQL configuration and optimizations.",
-          "Conducted technical interviews, helping expand the engineering team."
+          { task: "Online Intelligence Module Implementation", description: "Implemented the company's online intelligence module over gRPC for fast, on-demand computations." },
+          { task: "Feature Store Scalability Improvement", description: "Improved the custom online Feature Store scalability using PostgreSQL configuration and optimizations." },
+          { task: "Technical Interviewing", description: "Conducted technical interviews, helping expand the engineering team." }
         ]
       },
       {
         title: "AI Solutions Engineer",
         period: "February 2021 - January 2022",
         details: [
-          "Designed and implemented custom ML pipelines for various clients (fraud detection, demand forecasting, etc.).",
-          "Designed and built the company's online Feature Store from scratch using PostgreSQL and Python.",
-          "Designed and implemented the internal ML orchestration module using Dagster, Docker, and AWS."
+          { task: "Custom ML Pipeline Development", description: "Designed and implemented custom ML pipelines for various clients (fraud detection, demand forecasting, etc.)." },
+          { task: "Online Feature Store Creation", description: "Designed and built the company's online Feature Store from scratch using PostgreSQL and Python." },
+          { task: "Internal ML Orchestration Module", description: "Designed and implemented the internal ML orchestration module using Dagster, Docker, and AWS." }
         ]
       }
-    ]
+    ],
+    details: []
   };
 
   const previousExperience: PreviousExperienceItem[] = [
@@ -131,8 +139,8 @@ function App() {
       location: "Madrid, Spain",
       period: "September 2019 - February 2021",
       details: [
-        "Led the finance department's data transformation (EMEA, AMER, APAC) for a global hotel group.",
-        "Conducted situation appraisals for international clients regarding Data Management and BI."
+        { task: "Finance Data Transformation", description: "Led the finance department's data transformation (EMEA, AMER, APAC) for a global hotel group." },
+        { task: "Data Management & BI Appraisals", description: "Conducted situation appraisals for international clients regarding Data Management and BI." }
       ]
     },
     {
@@ -141,8 +149,8 @@ function App() {
       location: "Madrid, Spain",
       period: "June 2018 - August 2018",
       details: [
-        "Designed and developed services/APIs for automating Solvency II file processing and analysis.",
-        "Developed microservices for retrieving and processing massive financial data."
+        { task: "Solvency II Automation", description: "Designed and developed services/APIs for automating Solvency II file processing and analysis." },
+        { task: "Financial Data Microservices", description: "Developed microservices for retrieving and processing massive financial data." }
       ]
     },
     {
@@ -151,8 +159,8 @@ function App() {
       location: "Madrid, Spain",
       period: "April 2017 - October 2017",
       details: [
-        "Improved/maintained movie/series detection algorithms (C++/OpenCV).",
-        "Migrated services to AWS EC2 using Docker and Jenkins."
+        { task: "Media Detection Algorithms", description: "Improved/maintained movie/series detection algorithms (C++/OpenCV)." },
+        { task: "AWS Migration", description: "Migrated services to AWS EC2 using Docker and Jenkins." }
       ]
     }
   ];
@@ -467,7 +475,7 @@ function App() {
                   )}
                   <ul className="list-disc pl-6 space-y-3 text-lg">
                     {capchaseExperience.roles[activeCapchaseRole].details.map((detail, index) => (
-                      <li key={index}>{detail}</li>
+                      <li key={index}><span className="font-semibold">{detail.task}:</span> {detail.description}</li>
                     ))}
                   </ul>
                 </CardContent>
@@ -518,7 +526,7 @@ function App() {
                 <CardContent>
                   <ul className="list-disc pl-6 space-y-3 text-lg">
                     {apresExperience.roles[activeApresRole].details.map((detail, index) => (
-                      <li key={index}>{detail}</li>
+                      <li key={index}><span className="font-semibold">{detail.task}:</span> {detail.description}</li>
                     ))}
                   </ul>
                 </CardContent>
@@ -571,7 +579,7 @@ function App() {
                 <CardContent>
                   <ul className="list-disc pl-6 space-y-3 text-lg">
                     {previousExperience[activePreviousRole].details.map((detail, index) => (
-                      <li key={index}>{detail}</li>
+                      <li key={index}><span className="font-semibold">{detail.task}:</span> {detail.description}</li>
                     ))}
                   </ul>
                 </CardContent>
