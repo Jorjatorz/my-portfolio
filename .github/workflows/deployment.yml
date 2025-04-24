@@ -38,7 +38,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --force # Forcing due to typewriter-effect lib and react version conflict.
 
       - name: Build
         run: npm run build
