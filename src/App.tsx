@@ -177,7 +177,7 @@ function App() {
           {
             task: "Technical Interviewing", description: [
               { text: "Conducted technical interviews, " },
-              { text: "helping expand the engineering team", highlight: true },
+              { text: "helping expand the engineering team.", highlight: true },
             ]
           }
         ]
@@ -442,7 +442,7 @@ function App() {
               <h1 className="text-4xl md:text-6xl font-bold text-foreground">Jorge Sánchez Cremades</h1>
               <h2 className="text-2xl md:text-3xl text-accent">Freelance Software Engineer | Data & AI Solutions</h2>
               <p className="text-lg md:text-xl text-foreground/80 mt-2">
-                <span className="inline-block min-h-[1.5em] align-top text-violet-700"> {/* Adjust min-h for layout stability */}
+                <span className="inline-block min-h-[1.5em] align-top text-purple-300"> {/* Adjust min-h for layout stability */}
                   <Typewriter
                     options={{
                       strings: [
