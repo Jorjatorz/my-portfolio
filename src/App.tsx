@@ -299,9 +299,9 @@ function App() {
 
     let animationFrameId: number;
     let particles: { x: number; y: number; vx: number; vy: number }[] = [];
-    const numParticles = 50;
-    const connectDistance = 100;
-    const particleSpeed = 0.5;
+    const numParticles = 25;
+    const connectDistance = 300;
+    const particleSpeed = 0.70;
     const lineColor = 'rgba(220, 179, 65, 0.5)';
 
     const resizeCanvas = () => {
@@ -370,7 +370,7 @@ function App() {
       {/* Animated Background Canvas */}
       <canvas
         ref={canvasRef}
-        className="fixed top-0 left-0 w-full h-full -z-10 blur-[3px]"
+        className="fixed top-0 left-0 w-full h-full -z-10 blur-[2px]"
       />
 
       {/* Fixed Profile Links */}
