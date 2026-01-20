@@ -15,8 +15,8 @@ const policies: PrivacyPolicy[] = [
     lastUpdated: "March 1, 2025",
   },
   {
-    appName: "El Juego del Papelito",
-    path: "/el-juego-del-papelito",
+    appName: "El Juego de los Papelitos",
+    path: "/el-juego-de-los-papelitos",
     lastUpdated: "March 1, 2025",
   },
 ];
