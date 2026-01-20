@@ -1,790 +1,377 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { badgeVariants } from "@/components/ui/badge"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useRef, useState, useEffect } from "react";
-import Typewriter from 'typewriter-effect';
-import { cn } from "./lib/utils";
+import { useEffect, useMemo, useState } from "react";
 
-// Define types for experience data
-type DescriptionSegment = {
-  text: string;
-  highlight?: boolean;
+type PrivacyPolicy = {
+  appName: string;
+  path: string;
+  lastUpdated: string;
 };
 
-type ExperienceDetail = {
-  task: string;
-  description: DescriptionSegment[];
+type Language = "es" | "en";
+
+const policies: PrivacyPolicy[] = [
+  {
+    appName: "TemporadApp",
+    path: "/temporadapp",
+    lastUpdated: "March 1, 2025",
+  },
+  {
+    appName: "El Juego del Papelito",
+    path: "/el-juego-del-papelito",
+    lastUpdated: "March 1, 2025",
+  },
+];
+
+const translations = {
+  es: {
+    privacyPolicy: "Política de Privacidad",
+    lastUpdated: "Última actualización",
+    summaryTitle: "Resumen",
+    summaryBody: (appName: string) =>
+      `${appName} muestra anuncios de Google AdSense y usa Firebase Analytics y Firebase Crashlytics para entender el uso de la app y su estabilidad. No necesitas crear una cuenta y no vendemos tu información personal.`,
+    informationTitle: "Información que recopilamos",
+    informationList: [
+      "Datos de uso de la app como pantallas vistas, duración de la sesión y eventos de interacción, recopilados mediante Firebase Analytics.",
+      "Informes de fallos y datos de diagnóstico, recopilados mediante Firebase Crashlytics (Crashanalytics).",
+      "Identificadores del dispositivo y relacionados con publicidad usados por Google AdSense para mostrar y medir anuncios.",
+    ],
+    useTitle: "Cómo usamos la información",
+    useList: [
+      "Proporcionar y mejorar la experiencia de la app.",
+      "Monitorizar el rendimiento y corregir errores.",
+      "Medir el rendimiento de anuncios y prevenir fraudes.",
+    ],
+    thirdPartyTitle: "Servicios de terceros",
+    thirdPartyBody:
+      "Utilizamos terceros de confianza para operar la app. Estos proveedores pueden recopilar información según sus políticas de privacidad.",
+    thirdPartyList: [
+      "Google AdSense (anuncios, identificadores publicitarios).",
+      "Google Firebase Analytics (analítica de uso).",
+      "Google Firebase Crashlytics (informes de fallos).",
+    ],
+    retentionTitle: "Conservación de datos",
+    retentionBody:
+      "Conservamos los datos de analítica y fallos el tiempo necesario para mejorar la app y cumplir obligaciones legales. Las políticas de conservación se gestionan desde las plataformas de Firebase y Google.",
+    securityTitle: "Seguridad",
+    securityBody:
+      "Adoptamos medidas razonables para proteger la información, pero ningún método de transmisión o almacenamiento es 100% seguro.",
+    childrenTitle: "Privacidad de menores",
+    childrenBody: (appName: string) =>
+      `${appName} no está dirigida a menores de 13 años. No recopilamos intencionadamente información personal de menores.`,
+    changesTitle: "Cambios en esta política",
+    changesBody:
+      "Podemos actualizar esta política periódicamente. Los cambios se publicarán en esta página con una fecha de actualización revisada.",
+    contactTitle: "Contacto",
+    contactBody: (appName: string) =>
+      `Si tienes preguntas sobre esta política, contacta con nosotros a través de la ficha de la app en la tienda para ${appName}.`,
+    privacyCenter: "Centro de Privacidad",
+    appPolicies: "Políticas de privacidad de apps",
+    chooseApp: "Elige una app para leer su política de privacidad de Play Store.",
+    readPolicy: "Leer política",
+    notFound: "No se ha encontrado la página.",
+    notFoundBody:
+      "Usa los enlaces siguientes para acceder a las políticas disponibles.",
+    navTitle: "Políticas de privacidad",
+    languageLabel: "Idioma",
+    spanish: "Español (ES)",
+    english: "English",
+  },
+  en: {
+    privacyPolicy: "Privacy Policy",
+    lastUpdated: "Last updated",
+    summaryTitle: "Summary",
+    summaryBody: (appName: string) =>
+      `${appName} shows Google AdSense ads and uses Firebase Analytics and Firebase Crashlytics to understand app usage and stability. We do not require you to create an account and we do not sell your personal information.`,
+    informationTitle: "Information We Collect",
+    informationList: [
+      "App usage data such as screens viewed, session duration, and interaction events, collected through Firebase Analytics.",
+      "Crash reports and diagnostic data, collected through Firebase Crashlytics (Crashanalytics).",
+      "Device and ad-related identifiers used by Google AdSense to serve and measure ads.",
+    ],
+    useTitle: "How We Use Information",
+    useList: [
+      "Provide and improve the app experience.",
+      "Monitor app performance and fix errors.",
+      "Measure ad performance and prevent fraud.",
+    ],
+    thirdPartyTitle: "Third-Party Services",
+    thirdPartyBody:
+      "We rely on trusted third parties to operate the app. These providers may collect information as described in their privacy policies.",
+    thirdPartyList: [
+      "Google AdSense (ads, advertising identifiers).",
+      "Google Firebase Analytics (usage analytics).",
+      "Google Firebase Crashlytics (crash reporting).",
+    ],
+    retentionTitle: "Data Retention",
+    retentionBody:
+      "We retain analytics and crash data for as long as needed to improve the app and comply with legal obligations. Data retention policies are controlled through the Firebase and Google platforms.",
+    securityTitle: "Security",
+    securityBody:
+      "We take reasonable steps to protect information, but no method of transmission or storage is 100% secure.",
+    childrenTitle: "Children's Privacy",
+    childrenBody: (appName: string) =>
+      `${appName} is not directed to children under 13. We do not knowingly collect personal information from children.`,
+    changesTitle: "Changes to This Policy",
+    changesBody:
+      "We may update this policy from time to time. Changes will be posted on this page with a revised \"Last updated\" date.",
+    contactTitle: "Contact",
+    contactBody: (appName: string) =>
+      `If you have questions about this policy, please contact us through the app store listing for ${appName}.`,
+    privacyCenter: "Privacy Center",
+    appPolicies: "App Privacy Policies",
+    chooseApp: "Choose an app to read its Play Store privacy policy.",
+    readPolicy: "Read policy",
+    notFound: "We could not find that page.",
+    notFoundBody:
+      "Use the links below to reach the available privacy policies.",
+    navTitle: "Privacy Policies",
+    languageLabel: "Language",
+    spanish: "Español (ES)",
+    english: "English",
+  },
 };
 
-type ExperienceRole = {
-  title: string;
-  period: string;
-  introduction?: string;
-  details: ExperienceDetail[];
+const normalizePath = (path: string) => {
+  const trimmed = path.replace(/\/+$/, "");
+  return trimmed === "" ? "/" : trimmed;
 };
 
-type ExperienceItem = {
-  company: string;
-  location: string;
-  period: string;
-  roles: ExperienceRole[];
-  details: ExperienceDetail[];
+const findPolicy = (path: string) => {
+  const normalized = normalizePath(path);
+  return policies.find((policy) => policy.path === normalized);
 };
 
-type PreviousExperienceItem = {
-  company: string;
-  title: string;
-  location: string;
-  period: string;
-  details: ExperienceDetail[];
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "auto" });
 };
 
-// Define section data for navigation
-type Section = {
-  id: number;
-  name: string;
+const useRoute = () => {
+  const [path, setPath] = useState(() => normalizePath(window.location.pathname));
+
+  useEffect(() => {
+    const handlePopState = () => setPath(normalizePath(window.location.pathname));
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const navigate = (nextPath: string) => {
+    const normalized = normalizePath(nextPath);
+    if (normalized === path) return;
+    window.history.pushState({}, "", normalized);
+    setPath(normalized);
+    scrollToTop();
+  };
+
+  return { path, navigate };
+};
+
+const PrivacyPolicyPage = ({
+  policy,
+  language,
+}: {
+  policy: PrivacyPolicy;
+  language: Language;
+}) => {
+  const copy = translations[language];
+  return (
+    <main className="page">
+      <header className="hero">
+        <p className="eyebrow">{copy.privacyPolicy}</p>
+        <h1>{policy.appName}</h1>
+        <p className="updated">
+          {copy.lastUpdated}: {policy.lastUpdated}
+        </p>
+      </header>
+
+      <section className="card">
+        <h2>{copy.summaryTitle}</h2>
+        <p>{copy.summaryBody(policy.appName)}</p>
+      </section>
+
+      <section className="card">
+        <h2>{copy.informationTitle}</h2>
+        <ul>
+          {copy.informationList.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="card">
+        <h2>{copy.useTitle}</h2>
+        <ul>
+          {copy.useList.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="card">
+        <h2>{copy.thirdPartyTitle}</h2>
+        <p>{copy.thirdPartyBody}</p>
+        <ul>
+          {copy.thirdPartyList.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="card">
+        <h2>{copy.retentionTitle}</h2>
+        <p>{copy.retentionBody}</p>
+      </section>
+
+      <section className="card">
+        <h2>{copy.securityTitle}</h2>
+        <p>{copy.securityBody}</p>
+      </section>
+
+      <section className="card">
+        <h2>{copy.childrenTitle}</h2>
+        <p>{copy.childrenBody(policy.appName)}</p>
+      </section>
+
+      <section className="card">
+        <h2>{copy.changesTitle}</h2>
+        <p>{copy.changesBody}</p>
+      </section>
+
+      <section className="card">
+        <h2>{copy.contactTitle}</h2>
+        <p>{copy.contactBody(policy.appName)}</p>
+      </section>
+    </main>
+  );
+};
+
+const Home = ({
+  onNavigate,
+  language,
+}: {
+  onNavigate: (path: string) => void;
+  language: Language;
+}) => {
+  const copy = translations[language];
+  return (
+    <main className="page">
+      <header className="hero">
+        <p className="eyebrow">{copy.privacyCenter}</p>
+        <h1>{copy.appPolicies}</h1>
+        <p className="updated">{copy.chooseApp}</p>
+      </header>
+
+      <div className="grid">
+        {policies.map((policy) => (
+          <a
+            key={policy.appName}
+            href={policy.path}
+            className="card link-card"
+            onClick={(event) => {
+              event.preventDefault();
+              onNavigate(policy.path);
+            }}
+          >
+            <h2>{policy.appName}</h2>
+            <p>{copy.summaryTitle} · {copy.privacyPolicy}</p>
+            <span className="link-arrow">{copy.readPolicy}</span>
+          </a>
+        ))}
+      </div>
+    </main>
+  );
+};
+
+const NotFound = ({
+  onNavigate,
+  language,
+}: {
+  onNavigate: (path: string) => void;
+  language: Language;
+}) => {
+  const copy = translations[language];
+  return (
+    <main className="page">
+      <header className="hero">
+        <p className="eyebrow">{copy.notFound}</p>
+        <h1>{copy.notFound}</h1>
+        <p className="updated">{copy.notFoundBody}</p>
+      </header>
+      <div className="grid">
+        {policies.map((policy) => (
+          <a
+            key={policy.path}
+            href={policy.path}
+            className="card link-card"
+            onClick={(event) => {
+              event.preventDefault();
+              onNavigate(policy.path);
+            }}
+          >
+            <h2>{policy.appName}</h2>
+            <p>{copy.summaryTitle} · {copy.privacyPolicy}</p>
+            <span className="link-arrow">{copy.readPolicy}</span>
+          </a>
+        ))}
+      </div>
+    </main>
+  );
 };
 
 function App() {
-  const [activeSection, setActiveSection] = useState(0);
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null); // Ref for the canvas
-
-  // Section data - easy to extend by adding more sections
-  const sections: Section[] = [
-    { id: 0, name: "Home" },
-    { id: 1, name: "About" },
-    { id: 2, name: "Experience - Capchase" },
-    { id: 3, name: "Experience - Apres" },
-    { id: 4, name: "Experience - Others" },
-    { id: 5, name: "Education & Languages" }
-  ];
-
-  const totalSections = sections.length;
-
-  // Experience section state
-  const [activeCapchaseRole, setActiveCapchaseRole] = useState(0);
-  const [activeApresRole, setActiveApresRole] = useState(0);
-  const [activePreviousRole, setActivePreviousRole] = useState(0);
-
-  // Experience data
-  const capchaseExperience: ExperienceItem = {
-    company: "Capchase",
-    location: "Madrid, Spain",
-    period: "March 2023 - Present",
-    roles: [
-      {
-        title: "Generalist Software Engineer",
-        period: "August 2024 - Present",
-        introduction: "Transitioned from Data Analytics Engineer to Product engineering and Project Management, focusing on improving the company's internal tools and processes.",
-        details: [
-          {
-            task: "TAM Enrichment Flow", description: [
-              { text: "Improve lead scoring by analyzing the viability of potential clients using GenAI, resulting in an " },
-              { text: "85% cost reduction from hundred thousands to less than hundred dollars.", highlight: true },
-            ]
-          },
-          {
-            task: "Looker Financials to Netsuite Automation", description: [
-              { text: "Led a project to automate data transfer from Looker to Netsuite, " },
-              { text: "significantly reducing manual work for the finance department and improving financial reconcilation.", highlight: true },
-            ]
-          },
-          {
-            task: "Capital Markets Automation", description: [
-              { text: "Automating critical manual processes, like Borrowing Base generation, " },
-              { text: "significantly reducing manual effort and potential errors.", highlight: true },
-            ]
-          }
-        ]
-      },
-      {
-        title: "Data Analytics Engineer",
-        period: "March 2023 - Agust 2024",
-        introduction: "Led several high-impact data engineering and analytics initiatives, significantly improving operational efficiency, data quality, and models performance. Working with both technical and business stakeholders.",
-        details: [
-          {
-            task: "Core Operational Models Enhancement", description: [
-              { text: "Designed, implemented, and refactored complex delinquency and financial models within DBT (BigQuery) and Looker." }
-            ]
-          },
-          {
-            task: "Business Metrics Versioning", description: [
-              { text: "Implemented metrics versioning for the core operational models, leading to a " },
-              { text: "more robust BI system and fewer issues raised by stakeholders.", highlight: true },
-            ]
-          },
-          {
-            task: "Machine Learning Pipeline Standardization", description: [
-              { text: "Developed a standardized ML pipeline using Vertex AI and Dagster, " },
-              { text: "substantially reducing deployment time and enhancing model consistency.", highlight: true },
-            ]
-          },
-        ]
-      }
-    ],
-    details: []
-  };
-
-  const apresExperience: ExperienceItem = {
-    company: "Apres",
-    location: "San Francisco, California",
-    period: "February 2021 - March 2023",
-    roles: [
-      {
-        title: "Senior Machine Learning Engineer",
-        period: "June 2022 - March 2023",
-        details: [
-          {
-            task: "Vehicle-Driver Assignments Scheduler", description: [
-              { text: "Designed and implemented a custom vehicle-driver assignments scheduler using Google OR-Tools, handling complex scenarios efficiently." }
-            ]
-          },
-          {
-            task: "Graph Neural Network (GNN) Improvement", description: [
-              { text: "Improved Graph Neural Network (GNN) technology using PyTorch for " },
-              { text: "better performance and embeddings visualization.", highlight: true },
-            ]
-          },
-          {
-            task: "Feature Store Scaling", description: [
-              { text: "Scaled a custom online Feature Store and Python intelligence modules to " },
-              { text: "handle millions of records through optimization.", highlight: true },
-            ]
-          }
-        ]
-      },
-      {
-        title: "Machine Learning Engineer",
-        period: "January 2022 - June 2022",
-        details: [
-          {
-            task: "Online Intelligence Module Implementation", description: [
-              { text: "Implemented the company's online intelligence module over gRPC for " },
-              { text: "fast, on-demand computations.", highlight: true },
-            ]
-          },
-          {
-            task: "Feature Store Scalability Improvement", description: [
-              { text: "Improved the custom online Feature Store scalability using PostgreSQL configuration and optimizations." }
-            ]
-          },
-          {
-            task: "Technical Interviewing", description: [
-              { text: "Conducted technical interviews, " },
-              { text: "helping expand the engineering team.", highlight: true },
-            ]
-          }
-        ]
-      },
-      {
-        title: "AI Solutions Engineer",
-        period: "February 2021 - January 2022",
-        details: [
-          {
-            task: "Custom ML Pipeline Development", description: [
-              { text: "Designed and implemented custom ML pipelines for various clients (fraud detection, demand forecasting, etc.)." }
-            ]
-          },
-          {
-            task: "Online Feature Store Creation", description: [
-              { text: "Designed and built the company's online Feature Store from scratch using PostgreSQL and Python." }
-            ]
-          },
-          {
-            task: "Internal ML Orchestration Module", description: [
-              { text: "Designed and implemented the internal ML orchestration module using Dagster, Docker, and AWS." }
-            ]
-          }
-        ]
-      }
-    ],
-    details: []
-  };
-
-  const previousExperience: PreviousExperienceItem[] = [
-    {
-      company: "Deloitte",
-      title: "Information Technology Business Consultant",
-      location: "Madrid, Spain",
-      period: "September 2019 - February 2021",
-      details: [
-        {
-          task: "Finance Data Transformation", description: [
-            { text: "Led the finance department's data transformation (EMEA, AMER, APAC) for a global hotel group." }
-          ]
-        },
-        {
-          task: "Data Management & BI Appraisals", description: [
-            { text: "Conducted situation appraisals for international clients regarding Data Management and BI." }
-          ]
-        }
-      ]
-    },
-    {
-      company: "EtsFactory",
-      title: "Data Engineer",
-      location: "Madrid, Spain",
-      period: "June 2018 - August 2018",
-      details: [
-        {
-          task: "Solvency II Automation", description: [
-            { text: "Designed and developed services/APIs for automating Solvency II file processing and analysis." }
-          ]
-        },
-        {
-          task: "Financial Data Microservices", description: [
-            { text: "Developed microservices for retrieving and processing massive financial data." }
-          ]
-        }
-      ]
-    },
-    {
-      company: "Dive.tech",
-      title: "Software Engineer",
-      location: "Madrid, Spain",
-      period: "April 2017 - October 2017",
-      details: [
-        {
-          task: "Media Detection Algorithms", description: [
-            { text: "Improved/maintained movie/series detection algorithms (C++/OpenCV)." }
-          ]
-        },
-        {
-          task: "AWS Migration", description: [
-            { text: "Migrated services to AWS EC2 using Docker and Jenkins." }
-          ]
-        }
-      ]
-    }
-  ];
-
-  const scrollToSection = (index: number) => {
-    if (index >= 0 && index < totalSections) {
-      sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const newActiveSection = Math.floor(scrollPosition / windowHeight);
-
-    if (newActiveSection !== activeSection && newActiveSection < totalSections) {
-      setActiveSection(newActiveSection);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [activeSection]);
-
-  // Initialize sectionRefs array
-  useEffect(() => {
-    sectionRefs.current = sectionRefs.current.slice(0, totalSections);
-  }, [totalSections]);
-
-  // Canvas animation effect
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    let particles: { x: number; y: number; vx: number; vy: number }[] = [];
-    const numParticles = 50;
-    const connectDistance = 100;
-    const particleSpeed = 0.5;
-    const lineColor = 'rgba(220, 179, 65, 0.5)';
-
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      particles = []; // Reinitialize particles on resize
-      for (let i = 0; i < numParticles; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * particleSpeed * 2,
-          vy: (Math.random() - 0.5) * particleSpeed * 2,
-        });
-      }
-    };
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((p) => {
-        // Update position
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Bounce off edges
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-      });
-
-      // Draw connecting lines
-      ctx.strokeStyle = lineColor;
-      ctx.lineWidth = 5; // Make lines thicker
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < connectDistance) {
-            ctx.globalAlpha = 1 - distance / connectDistance; // Fade line with distance
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-      ctx.globalAlpha = 1; // Reset alpha
-
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    resizeCanvas(); // Initial setup
-    animate();
-    window.addEventListener('resize', resizeCanvas);
-
-    // Cleanup
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', resizeCanvas);
-    };
-  }, []); // Empty dependency array ensures this runs only once on mount
+  const { path, navigate } = useRoute();
+  const activePolicy = useMemo(() => findPolicy(path), [path]);
+  const [language, setLanguage] = useState<Language>("es");
+  const copy = translations[language];
 
   return (
-    <div className="relative text-foreground">
-      {/* Animated Background Canvas */}
-      <canvas
-        ref={canvasRef}
-        className="fixed top-0 left-0 w-full h-full -z-10 blur-[3px]"
-      />
-
-      {/* Fixed Profile Links */}
-      <div className="fixed top-4 right-4 z-50 flex gap-2">
-        <a
-          href="https://www.linkedin.com/in/jorge-sanchez-cremades/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(badgeVariants({ variant: "outline" }), "text-sm p-1.5 border-accent text-foreground hover:bg-card")}
-        >
-          LinkedIn
-        </a>
-        <a
-          href="https://github.com/Jorjatorz"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(badgeVariants({ variant: "outline" }), "text-sm p-1.5 border-accent text-foreground hover:bg-card")}
-        >
-          GitHub
-        </a>
-      </div>
-
-      {/* Enhanced Navigation Controls */}
-      <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-50">
-        <div className="relative flex flex-col gap-4">
-          {/* Vertical line */}
-          <div
-            className="absolute w-[1px] bg-accent/40 right-[6px] top-4 bottom-4"
-            aria-hidden="true"
-          />
-
-          {sections.map((section) => (
-            <div
-              key={section.id}
-              className="group flex items-center justify-end h-8 cursor-pointer z-10"
-              onClick={() => scrollToSection(section.id)}
+    <div className="app">
+      <nav className="nav">
+        <button type="button" className="brand" onClick={() => navigate("/")}>
+          {copy.navTitle}
+        </button>
+        <div className="nav-links">
+          {policies.map((policy) => (
+            <button
+              key={policy.path}
+              type="button"
+              className={path === policy.path ? "active" : undefined}
+              onClick={() => navigate(policy.path)}
             >
-              {/* Section label - smooth transition */}
-              <div
-                className={`px-3 py-1 rounded-md text-sm font-medium whitespace-nowrap transition-opacity duration-300 ease-in-out ${activeSection === section.id
-                  ? "opacity-80 text-primary font-semibold"
-                  : "opacity-0 group-hover:opacity-100 group-hover:text-primary/50 text-secondary"
-                  } `}
-              >
-                {section.name}
-              </div>
-
-              {/* Navigation dot - always visible, styles change */}
-              <div
-                className={`w-3 h-3 rounded-full ml-2 shrink-0 transition-all duration-300 ease-in-out ${activeSection === section.id
-                  ? 'bg-primary scale-125'
-                  : 'bg-secondary group-hover:bg-primary group-hover:scale-110'
-                  }`}
-                aria-label={`Navigate to ${section.name}`}
-              />
-            </div>
+              {policy.appName}
+            </button>
           ))}
         </div>
-      </div>
-
-      {/* Section 1: Header */}
-      <div
-        ref={(el) => { sectionRefs.current[0] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_rgba(21,18,30,0.8)_10%,_transparent_80%)] snap-start"
-      >
-        <div className="container px-4 py-16">
-          <div className="flex flex-col md:flex-row gap-8 items-center">
-            <div className="space-y-4 text-center md:text-left">
-              <h1 className="text-4xl md:text-6xl font-bold text-foreground">Jorge Sánchez Cremades</h1>
-              <h2 className="text-2xl md:text-3xl text-accent">Freelance Software Engineer | Data & AI Solutions</h2>
-              <p className="text-lg md:text-xl text-foreground/80 mt-2">
-                <span className="inline-block min-h-[1.5em] align-top text-purple-300"> {/* Adjust min-h for layout stability */}
-                  <Typewriter
-                    options={{
-                      strings: [
-                        "Building efficient data pipelines",
-                        "Developing custom AI/ML solutions",
-                        "Optimizing software",
-                      ],
-                      autoStart: true,
-                      loop: true,
-                      delay: 50, // Typing speed
-                      deleteSpeed: 25, // Deleting speed
-                      wrapperClassName: "inline-block", // Keep it inline
-                      cursor: "_",
-                    }}
-                  />
-                </span>
-                to solve complex challenges and drive growth.
-              </p>
-            </div>
-            <Avatar className="h-32 w-32 md:h-48 md:w-48 bg-card border-2 border-primary">
-              <AvatarFallback className="text-3xl md:text-5xl bg-card text-primary">
-                JS
-              </AvatarFallback>
-            </Avatar>
-          </div>
+        <div className="language-toggle" aria-label={copy.languageLabel}>
+          <span>{copy.languageLabel}</span>
+          <button
+            type="button"
+            className={language === "es" ? "active" : undefined}
+            onClick={() => setLanguage("es")}
+          >
+            {copy.spanish}
+          </button>
+          <button
+            type="button"
+            className={language === "en" ? "active" : undefined}
+            onClick={() => setLanguage("en")}
+          >
+            {copy.english}
+          </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Section 2: About */}
-      <div
-        ref={(el) => { sectionRefs.current[1] = el; }}
-        className="min-h-screen flex flex-col bg-[radial-gradient(ellipse_at_center,_rgba(21,18,30,0.8)_10%,_transparent_80%)] snap-start"
-      >
-        {/* Section Header */}
+      {path === "/" && <Home onNavigate={navigate} language={language} />}
+      {path !== "/" && activePolicy && (
+        <PrivacyPolicyPage policy={activePolicy} language={language} />
+      )}
+      {path !== "/" && !activePolicy && (
+        <NotFound onNavigate={navigate} language={language} />
+      )}
 
-
-        {/* Two-column layout */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2">
-          {/* Summary - Left column with lighter background */}
-          <div className=" p-8 flex items-center">
-            <div className="prose prose-invert max-w-xl text-foreground autoShow">
-              <p className="text-xl">
-                Software Engineer specialized in <span className="text-primary">Machine Learning, Data Engineering, and Product</span> with a strong consulting background.
-                Passionate about developing algorithms, <span className="text-primary">optimizing</span> code, <span className="text-primary">designing</span> software, and <span className="text-primary">implementing</span> AI models.
-              </p>
-              <br />
-              <p className="text-xl">
-                From time to time I develop Personal Projects.
-              </p>
-            </div>
-          </div>
-
-          {/* Skills - Right column with original background */}
-          <div className="flex items-center">
-            <div className="p-8 flex flex-col items-center">
-              <h2 className="text-3xl font-bold text-primary mb-6 autoShowFromRight">Core Services</h2>
-              <div className="w-full space-y-4">
-                {/* Compact skill cards with hover effect */}
-                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
-                  <div className="p-4 cursor-pointer">
-                    <h3 className="text-2xl font-semibold text-primary">Data Engineering</h3>
-                    <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
-                      Designing, building, and managing scalable data pipelines (DBT, BigQuery, Hightouch, ...) solutions.
-                    </div>
-                  </div>
-                  <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
-                </div>
-
-                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
-                  <div className="p-4 cursor-pointer">
-                    <h3 className="text-2xl font-semibold text-primary">ML & AI</h3>
-                    <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
-                      Implementing custom Machine Learning models, leveraging GenAI, and deploying solutions (e.g. Vertex AI, Docker, Dagster, ...).
-                    </div>
-                  </div>
-                  <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
-                </div>
-
-                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
-                  <div className="p-4 cursor-pointer">
-                    <h3 className="text-2xl font-semibold text-primary">Software & System Optimization</h3>
-                    <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
-                      Improving application performance, reducing latency, optimizing database queries, and cutting infrastructure costs.
-                    </div>
-                  </div>
-                  <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
-                </div>
-
-                <div className="group relative overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-all hover:shadow-md autoShowFromRight">
-                  <div className="p-4 cursor-pointer">
-                    <h3 className="text-2xl font-semibold text-primary">Project Management & Technical Consulting</h3>
-                    <div className="max-h-0 overflow-hidden opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out mt-2">
-                      Providing expert guidance on architecture, technology choices, and project strategy.
-                    </div>
-                  </div>
-                  <div className="absolute top-0 left-0 w-1.5 h-full bg-accent"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Section 3: Experience Capchase */}
-      <div
-        ref={(el) => { sectionRefs.current[2] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_rgba(21,18,30,0.8)_10%,_transparent_80%)] snap-start"
-      >
-        <div className="container px-4 py-16">
-          <div className="mb-8">
-            <h2 className="text-4xl font-bold text-foreground">{capchaseExperience.company}</h2>
-            <div className="flex flex-col">
-              <p className="text-xl text-accent">{capchaseExperience.location}</p>
-              <p className="text-xl font-small text-foreground">{capchaseExperience.period}</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Roles sidebar */}
-            <div className="space-y-4 autoShow">
-              {capchaseExperience.roles.map((role, index) => (
-                <div
-                  key={index}
-                  onClick={() => setActiveCapchaseRole(index)}
-                  className={`p-4 border rounded-lg cursor-pointer transition-all ${activeCapchaseRole === index
-                    ? "border-primary bg-card"
-                    : "border-border hover:border-accent"
-                    }`}
-                >
-                  <h3 className="font-semibold text-xl text-primary">{role.title}</h3>
-                  <p className="text-foreground/70">{role.period}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Role details */}
-            <div className="md:col-span-2 autoShowFromRight">
-              <Card className="bg-card border-border text-foreground">
-                <CardHeader>
-                  <CardTitle className="text-primary">{capchaseExperience.roles[activeCapchaseRole].title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {capchaseExperience.roles[activeCapchaseRole].introduction && (
-                    <div className="text-foreground/70 mb-4">{capchaseExperience.roles[activeCapchaseRole].introduction}</div>
-                  )}
-                  <ul className="list-disc pl-6 space-y-3 text-lg">
-                    {capchaseExperience.roles[activeCapchaseRole].details.map((detail, index) => (
-                      <li key={index}>
-                        <span className="font-semibold">{detail.task}:</span>{' '}
-                        {detail.description.map((segment, segIndex) => (
-                          <span key={segIndex} className={segment.highlight ? "text-primary" : ""}>
-                            {segment.text}
-                          </span>
-                        ))}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Section 4: Experience Apres */}
-      <div
-        ref={(el) => { sectionRefs.current[3] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_rgba(21,18,30,0.8)_10%,_transparent_80%)] snap-start"
-      >
-        <div className="container px-4 py-16">
-          <div className="mb-8">
-            <h2 className="text-4xl font-bold text-foreground">{apresExperience.company}</h2>
-            <div className="flex flex-col">
-              <p className="text-xl text-accent">{apresExperience.location}</p>
-              <p className="text-xl font-small text-foreground">{apresExperience.period}</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Roles sidebar */}
-            <div className="space-y-4">
-              {apresExperience.roles.map((role, index) => (
-                <div
-                  key={index}
-                  onClick={() => setActiveApresRole(index)}
-                  className={`p-4 border rounded-lg cursor-pointer transition-all ${activeApresRole === index
-                    ? "border-primary bg-background"
-                    : "border-border hover:border-accent"
-                    } autoShow`}
-                >
-                  <h3 className="font-semibold text-xl text-primary">{role.title}</h3>
-                  <p className="text-foreground/70">{role.period}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Role details */}
-            <div className="md:col-span-2 autoShowFromRight">
-              <Card className="bg-background border-border text-foreground">
-                <CardHeader>
-                  <CardTitle className="text-primary">{apresExperience.roles[activeApresRole].title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="list-disc pl-6 space-y-3 text-lg">
-                    {apresExperience.roles[activeApresRole].details.map((detail, index) => (
-                      <li key={index}>
-                        <span className="font-semibold">{detail.task}:</span>{' '}
-                        {detail.description.map((segment, segIndex) => (
-                          <span key={segIndex} className={segment.highlight ? "text-primary" : ""}>
-                            {segment.text}
-                          </span>
-                        ))}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Section 5: Previous Experience */}
-      <div
-        ref={(el) => { sectionRefs.current[4] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_rgba(21,18,30,0.8)_10%,_transparent_80%)] snap-start"
-      >
-        <div className="container px-4 py-16">
-          <div className="mb-8">
-            <h2 className="text-4xl font-bold text-foreground">Others</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Previous roles sidebar */}
-            <div className="space-y-4">
-              {previousExperience.map((exp, index) => (
-                <div
-                  key={index}
-                  onClick={() => setActivePreviousRole(index)}
-                  className={`p-4 border rounded-lg cursor-pointer transition-all ${activePreviousRole === index
-                    ? "border-primary bg-card"
-                    : "border-border hover:border-accent"
-                    } autoShow`}
-                >
-                  <h3 className="font-semibold text-xl text-primary">{exp.company}</h3>
-                  <p className="font-medium text-foreground">{exp.title}</p>
-                  <p className="text-foreground/70">{exp.period}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Role details */}
-            <div className="md:col-span-2 autoShowFromRight">
-              <Card className="bg-card border-border text-foreground">
-                <CardHeader>
-                  <CardTitle className="text-primary">
-                    {previousExperience[activePreviousRole].company}: {previousExperience[activePreviousRole].title}
-                  </CardTitle>
-                  <p className="text-accent">
-                    {previousExperience[activePreviousRole].location} | {previousExperience[activePreviousRole].period}
-                  </p>
-                </CardHeader>
-                <CardContent>
-                  <ul className="list-disc pl-6 space-y-3 text-lg">
-                    {previousExperience[activePreviousRole].details.map((detail, index) => (
-                      <li key={index}>
-                        <span className="font-semibold">{detail.task}:</span>{' '}
-                        {detail.description.map((segment, segIndex) => (
-                          <span key={segIndex} className={segment.highlight ? "text-primary" : ""}>
-                            {segment.text}
-                          </span>
-                        ))}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Section 6: Education, Languages */}
-      <div
-        ref={(el) => { sectionRefs.current[5] = el; }}
-        className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_rgba(21,18,30,0.8)_10%,_transparent_80%)] snap-start"
-      >
-        <div className="container px-4 py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <Card className="bg-background border-border text-foreground autoShow">
-              <CardHeader>
-                <CardTitle className="text-3xl text-primary">Education</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6 text-lg">
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground">IÉSEG School of Management</h3>
-                  <p>Master of Science in Business Analysis & Consulting</p>
-                  <p className="text-accent">2018-2020</p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground">Universidad Politécnica de Madrid</h3>
-                  <p>Master's degree in Artificial Intelligence</p>
-                  <p className="text-accent">2017-2018</p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground">Universidad Complutense de Madrid</h3>
-                  <p>Bachelor's degree in Computer Science</p>
-                  <p className="text-accent">2013-2017</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <div className="space-y-8 autoShowFromRight">
-              <Card className="bg-background border-border text-foreground">
-                <CardHeader>
-                  <CardTitle className="text-3xl text-primary">Languages</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4 text-lg">
-                  <div className="flex justify-between">
-                    <span>Spanish</span>
-                    <span className="text-accent">Native or Bilingual</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>English</span>
-                    <span className="text-accent">Full Professional</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>French</span>
-                    <span className="text-accent">Limited Working</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          <div className="text-center text-accent pt-16">
-            © 2025 Jorge Sánchez Cremades. All rights reserved.
-          </div>
-        </div>
-      </div>
+      <footer className="footer">
+        <span>© {new Date().getFullYear()} Jorge Sanchez Cremades</span>
+      </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
